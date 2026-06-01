@@ -1,0 +1,1 @@
+{"nodes": [{"id": "journal_journal", "label": "Journal", "file_type": "code", "source_file": "src/sections/Journal.tsx"}, {"id": "pattern_security_standard", "label": "Security Standards (OWASP)", "file_type": "rationale", "source_file": "src/sections/Journal.tsx", "rationale": "Ensuring production-grade application security"}], "edges": [], "hyperedges": []}
