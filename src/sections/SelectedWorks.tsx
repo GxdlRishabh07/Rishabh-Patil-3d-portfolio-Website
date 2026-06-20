@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { ImagesScrollingAnimation } from "@/components/ui/images-scrolling-animation";
+import { TextReveal } from "@/components/ui/cascade-text";
 
 const WORKS = [
   {
@@ -51,8 +52,30 @@ export function SelectedWorks() {
                   Selected Work
                 </span>
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl text-text-primary tracking-tight mb-4">
-                Featured <span className="font-display italic text-accent">projects</span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl text-text-primary tracking-tight mb-4 flex flex-wrap items-center">
+                <TextReveal
+                  as="span"
+                  text="Featured"
+                  fontSize="inherit"
+                  color="hsl(0, 0%, 96%)"
+                  hoverColor="hsl(0, 0%, 65%)"
+                  direction="up"
+                  staggerDelay={35}
+                  duration={300}
+                  style={{ padding: "0 0.05em 0 0", lineHeight: "inherit" }}
+                />{" "}
+                <TextReveal
+                  as="span"
+                  text="projects"
+                  fontSize="inherit"
+                  color="hsl(0, 0%, 96%)"
+                  hoverColor="hsl(0, 0%, 70%)"
+                  direction="up"
+                  staggerDelay={35}
+                  duration={300}
+                  className="font-display italic"
+                  style={{ padding: "0 0.05em", lineHeight: "inherit" }}
+                />
               </h2>
               <p className="text-sm md:text-base text-muted">
                 A selection of projects I've worked on, from concept to launch.

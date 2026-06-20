@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/reveal-on-hover";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { TextReveal } from "@/components/ui/cascade-text";
 
 const ITEMS = [
   {
@@ -75,8 +76,31 @@ export function EducationAndExperience() {
             <div className="max-w-[1200px] w-full mx-auto px-6 md:px-10 lg:px-16">
               <div className="flex items-center gap-6">
                 <div className="w-12 h-px bg-stroke" />
-                <h2 className="text-4xl md:text-5xl lg:text-6xl text-text-primary tracking-tight font-semibold">
-                  Education & Experience
+                <h2 className="text-4xl md:text-5xl lg:text-6xl text-text-primary tracking-tight font-semibold flex flex-wrap items-center gap-x-1">
+                  <TextReveal
+                    as="span"
+                    text="Education"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 96%)"
+                    hoverColor="hsl(0, 0%, 65%)"
+                    direction="up"
+                    staggerDelay={33}
+                    duration={300}
+                    style={{ padding: "0 0.04em 0 0", lineHeight: "inherit", fontWeight: "inherit" }}
+                  />
+                  <span style={{ lineHeight: "inherit" }}>&amp;</span>
+                  <TextReveal
+                    as="span"
+                    text="Experience"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 96%)"
+                    hoverColor="hsl(0, 0%, 65%)"
+                    direction="down"
+                    staggerDelay={30}
+                    duration={300}
+                    className="font-display italic"
+                    style={{ padding: "0 0 0 0.04em", lineHeight: "inherit", fontWeight: "inherit" }}
+                  />
                 </h2>
               </div>
             </div>
