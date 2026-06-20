@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Navbar } from "../components/Navbar";
+import { LiquidAurora } from "@/components/ui/liquid-aurora";
 
-const ROLES = ["Full-Stack", "Backend", "React", "Developer"];
+const ROLES = ["Full-Stack", "Backend", "Frontend", "React"];
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -11,7 +12,7 @@ export function Hero() {
   useEffect(() => {
     const roleInterval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % ROLES.length);
-    }, 2000);
+    }, 3000);
     return () => clearInterval(roleInterval);
   }, []);
 
@@ -39,27 +40,17 @@ export function Hero() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-bg">
-      {/* Background Video */}
-      <div className="absolute inset-0 z-0">
-        <video
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260307_083826_e938b29f-a43a-41ec-a153-3d4730578ab8.mp4"
-          className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2 opacity-30"
-          autoPlay
-          muted
-          loop
-          playsInline
-        />
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-t from-bg via-bg/80 to-transparent" />
-      </div>
+    <LiquidAurora className="w-full h-screen">
+      {/* Subtle dark overlay so text stays readable */}
+      <div className="absolute inset-0 bg-black/40 z-[3] pointer-events-none" />
 
+      <div ref={containerRef} className="relative w-full h-full">
       <Navbar />
 
       {/* Content */}
       <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-4 pt-20">
         <div className="blur-in text-xs text-muted uppercase tracking-[0.3em] mb-8">
-          COLLECTION '26
+          PROFESSIONAL SUMMARY
         </div>
 
         <h1 className="name-reveal text-6xl md:text-8xl lg:text-9xl font-display italic leading-[0.9] tracking-tight text-text-primary mb-6">
@@ -74,19 +65,23 @@ export function Hero() {
           >
             {ROLES[roleIndex]}
           </span>{" "}
-          lives in Pune.
+          Developer based in Pune.
         </div>
 
         <p className="blur-in text-sm md:text-base text-muted max-w-md mb-12">
           Results-driven Full-Stack Software Developer with proven expertise in designing, developing, and deploying scalable web applications.
         </p>
 
-        <div className="blur-in flex flex-col sm:flex-row items-center gap-4">
+        <div className="blur-in flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4">
           <a href="#work" className="group relative rounded-full text-sm px-7 py-3.5 bg-text-primary text-bg hover:bg-bg hover:text-text-primary transition-all duration-300 hover:scale-105">
             <div className="absolute -inset-[2px] rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
             <span className="relative z-10 font-medium">See Works</span>
           </a>
           
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="group relative rounded-full text-sm px-7 py-3.5 border border-stroke bg-surface text-text-primary hover:border-accent hover:text-accent transition-all duration-300 hover:scale-105">
+            <span className="relative z-10 font-medium">Download Resume</span>
+          </a>
+
           <a href="mailto:patilrishabh50@gmail.com" className="group relative rounded-full text-sm px-7 py-3.5 border-2 border-stroke bg-bg text-text-primary hover:border-transparent hover:scale-105 transition-all duration-300">
             <div className="absolute -inset-[2px] rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
             <span className="relative z-10 bg-bg px-7 py-3.5 rounded-full block -m-[14px] font-medium group-hover:bg-transparent transition-colors">
@@ -103,6 +98,7 @@ export function Hero() {
           <div className="absolute top-0 left-0 w-full h-full bg-text-primary animate-scroll-down" />
         </div>
       </div>
-    </section>
+      </div>
+    </LiquidAurora>
   );
 }

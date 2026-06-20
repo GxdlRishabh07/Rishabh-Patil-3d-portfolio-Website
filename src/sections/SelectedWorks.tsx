@@ -1,12 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { cn } from "../lib/utils";
-import GeometricBackground from "@/components/ui/geometric";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { ImagesScrollingAnimation } from "@/components/ui/images-scrolling-animation";
 
 const WORKS = [
   {
@@ -15,55 +10,31 @@ const WORKS = [
     image: "/internsphere.png",
     colSpan: "md:col-span-6",
     displayType: "showcase",
+    tech: ["Java", "Spring Boot", "React", "PostgreSQL"],
+    github: "#",
+    live: "#"
   },
   {
     title: "TideWave Andaman",
     category: "React SPA & Node.js",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=2072",
+    image: "/tidewave.jpg",
     colSpan: "md:col-span-6",
+    tech: ["React", "Node.js", "Express", "MongoDB"],
+    github: "#",
+    live: "#"
   },
 ];
 
 export function SelectedWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const ctx = gsap.context(() => {
-      // 3D slide and fade in for bento grid cards on scroll
-      gsap.fromTo(
-        ".work-card",
-        {
-          opacity: 0,
-          y: 60,
-          rotateX: 12,
-          scale: 0.96,
-          transformPerspective: 1000,
-          transformOrigin: "top center",
-        },
-        {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          scale: 1,
-          duration: 1,
-          stagger: 0.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".work-grid",
-            start: "top 85%",
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section id="work" ref={sectionRef} className="relative">
-      <GeometricBackground className="py-20 md:py-32">
+    <section id="work" ref={sectionRef} className="relative bg-black w-full overflow-visible">
+      {/* Top and Bottom black fade overlays to blend seamlessly */}
+      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black via-black/80 to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none z-10" />
+
+      <div className="pt-12 pb-10 md:pt-16 md:pb-14 relative z-20">
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
           {/* Header */}
           <motion.div
@@ -71,7 +42,7 @@ export function SelectedWorks() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 md:mb-16"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-6 md:mb-8"
           >
             <div className="max-w-xl">
               <div className="flex items-center gap-4 mb-6">
@@ -96,54 +67,18 @@ export function SelectedWorks() {
             </button>
           </motion.div>
 
-          {/* Bento Grid */}
-          <div className="work-grid grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6">
-            {WORKS.map((work, index) => (
-              <motion.div
-                key={index}
-                whileHover={{ y: -4 }}
-                className={cn(
-                  "work-card group relative bg-surface border border-stroke rounded-3xl overflow-hidden aspect-[16/9]",
-                  work.colSpan
-                )}
-              >
-                {/* Background Image */}
-                <img
-                  src={work.image}
-                  alt={work.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-
-                {/* Halftone Overlay */}
-                {work.displayType !== "showcase" && (
-                  <div
-                    className="absolute inset-0 opacity-20 mix-blend-multiply z-10"
-                    style={{
-                      backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)",
-                      backgroundSize: "4px 4px",
-                    }}
-                  />
-                )}
-
-                {/* Hover Darken */}
-                <div className="absolute inset-0 bg-bg/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-lg z-20 flex flex-col items-center justify-center p-6 text-center">
-                  <div className="relative inline-flex items-center rounded-full p-[1px] overflow-hidden mb-4">
-                    <div className="absolute inset-0 accent-gradient animate-gradient-shift bg-[length:200%_auto]" />
-                    <div className="relative bg-white text-bg px-6 py-2 rounded-full font-medium text-sm flex items-center gap-2">
-                      View — <span className="font-display italic text-base">{work.title}</span>
-                    </div>
-                  </div>
-                  <p className="text-text-primary/70 text-sm uppercase tracking-widest">
-                    {work.category}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+          {/* Stacked Cards Scrolling Animation */}
+          <div className="mt-4 w-full">
+            <ImagesScrollingAnimation
+              projectsList={WORKS.map((work) => ({
+                title: work.title,
+                category: work.category,
+                src: work.image,
+              }))}
+            />
           </div>
         </div>
-      </GeometricBackground>
-      {/* Bottom gradient fade to blend with next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-bg to-transparent pointer-events-none z-10" />
+      </div>
     </section>
   );
 }

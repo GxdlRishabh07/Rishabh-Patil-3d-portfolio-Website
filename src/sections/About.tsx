@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GeometricBackground from "@/components/ui/geometric";
+import { SpotlightGradientBg } from "@/components/ui/spotlight-gradient";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,9 +88,9 @@ export function About() {
       ref={sectionRef} 
       className="relative"
     >
-      <GeometricBackground className="py-20 md:py-32">
+      <SpotlightGradientBg className="py-20 md:py-32">
         {/* Top gradient fade to blend with hero */}
-        <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-bg via-bg/50 to-transparent pointer-events-none z-10" />
+        <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-black via-black/50 to-transparent pointer-events-none z-10" />
         
         <div className="relative max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 z-10">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
@@ -159,7 +159,7 @@ export function About() {
 
           </div>
         </div>
-      </GeometricBackground>
+      </SpotlightGradientBg>
     </section>
   );
 }

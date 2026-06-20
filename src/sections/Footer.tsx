@@ -21,7 +21,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="relative w-full overflow-hidden bg-bg pt-16 md:pt-20 pb-8 md:pb-12">
+    <footer className="relative w-full overflow-hidden bg-black pt-16 md:pt-20 pb-8 md:pb-12">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video
@@ -35,7 +35,7 @@ export function Footer() {
         <div className="absolute inset-0 bg-black/60" />
         
         {/* Top gradient fade to blend with previous section */}
-        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-bg to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent pointer-events-none" />
       </div>
 
       <div className="relative z-10 flex flex-col h-full justify-between gap-16 md:gap-32">

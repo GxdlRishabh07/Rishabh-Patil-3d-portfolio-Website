@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { LoadingScreen } from "./components/LoadingScreen";
-import { Hero } from "./sections/Hero";
+import { IntroSequence } from "./sections/IntroSequence";
 import { About } from "./sections/About";
-import { Education } from "./sections/Education";
-import { Certifications } from "./sections/Certifications";
+import { SectionParallaxReveal } from "./components/ui/about-parallax-reveal";
+import { EducationAndExperience } from "./sections/EducationAndExperience";
 import { SelectedWorks } from "./sections/SelectedWorks";
 import { ContactSection } from "./sections/ContactSection";
-import { Footer } from "./sections/Footer";
+import { CurtainFooter } from "./components/ui/motion-footer";
 import { ReactLenis, useLenis } from "lenis/react";
-import { motion, useScroll } from "framer-motion";
+import { Navbar } from "./components/Navbar";
 import gsap from "gsap";
 
 function AppContent({ isLoading }: { isLoading: boolean }) {
@@ -51,26 +51,18 @@ function AppContent({ isLoading }: { isLoading: boolean }) {
     };
   }, [lenis]);
 
-  const { scrollYProgress } = useScroll();
-
   return (
     <>
-      {/* Premium Glassmorphic Top Scroll Progress Indicator */}
-      {!isLoading && (
-        <motion.div
-          style={{ scaleX: scrollYProgress }}
-          className="fixed top-0 left-0 right-0 h-[4px] accent-gradient origin-left z-[100] shadow-[0_2px_10px_rgba(78,133,191,0.4)]"
-        />
-      )}
-
+      {!isLoading && <Navbar />}
       <main className={`w-full bg-bg transition-opacity duration-1000 ${isLoading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
-        <Hero />
-        <About />
-        <Education />
-        <Certifications />
+        <IntroSequence />
+        <SectionParallaxReveal>
+          <About />
+        </SectionParallaxReveal>
+        <EducationAndExperience />
         <SelectedWorks />
         <ContactSection />
-        <Footer />
+        <CurtainFooter />
       </main>
     </>
   );
