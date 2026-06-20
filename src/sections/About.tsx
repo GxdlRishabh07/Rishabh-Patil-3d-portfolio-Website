@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SpotlightGradientBg } from "@/components/ui/spotlight-gradient";
+import { TextReveal } from "@/components/ui/cascade-text";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -100,16 +101,112 @@ export function About() {
               <div className="flex items-center gap-6 about-title">
                 <div className="w-12 h-px bg-stroke" />
                 <h2 className="text-4xl md:text-6xl lg:text-7xl text-text-primary tracking-tight">
-                  About <span className="font-display italic text-accent">Me</span>
+                  About{" "}
+                  <TextReveal
+                    as="span"
+                    text="Me"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 96%)"
+                    hoverColor="hsl(0, 0%, 70%)"
+                    direction="up"
+                    staggerDelay={40}
+                    duration={320}
+                    className="font-display italic"
+                    style={{ padding: "0 0.05em", lineHeight: "inherit" }}
+                  />
                 </h2>
               </div>
 
               <div className="about-content space-y-6">
                 <p className="text-xl md:text-2xl text-text-primary/90 leading-relaxed font-medium">
-                  I am a results-driven Full-Stack Software Developer with proven expertise in designing, developing, and deploying scalable, production-grade web applications.
+                  I am a results-driven{" "}
+                  <TextReveal
+                    as="span"
+                    text="Full-Stack"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 90%)"
+                    hoverColor="hsl(0, 0%, 60%)"
+                    direction="up"
+                    staggerDelay={30}
+                    duration={280}
+                    style={{ padding: "0 0.1em", fontWeight: 800, lineHeight: "inherit" }}
+                  />{" "}
+                  Software Developer with proven expertise in designing, developing, and deploying{" "}
+                  <TextReveal
+                    as="span"
+                    text="scalable"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 90%)"
+                    hoverColor="hsl(0, 0%, 55%)"
+                    direction="up"
+                    staggerDelay={35}
+                    duration={280}
+                    style={{ padding: "0 0.1em", fontWeight: 800, lineHeight: "inherit" }}
+                  />{" "}
+                  production-grade web applications.
                 </p>
                 <p className="text-base md:text-lg text-muted leading-relaxed">
-                  With a strong proficiency in Java, React.js, Node.js, and Express.js, I specialize in building end-to-end solutions that support high-concurrency environments. My focus is on delivering sub-200ms response times and maintaining high standards of security and accessibility.
+                  With a strong proficiency in{" "}
+                  <TextReveal
+                    as="span"
+                    text="Java"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 75%)"
+                    hoverColor="hsl(0, 0%, 96%)"
+                    direction="down"
+                    staggerDelay={25}
+                    duration={240}
+                    style={{ padding: "0 0.08em", fontWeight: 700, lineHeight: "inherit" }}
+                  />
+                  ,{" "}
+                  <TextReveal
+                    as="span"
+                    text="React.js"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 75%)"
+                    hoverColor="hsl(0, 0%, 96%)"
+                    direction="down"
+                    staggerDelay={25}
+                    duration={240}
+                    style={{ padding: "0 0.08em", fontWeight: 700, lineHeight: "inherit" }}
+                  />
+                  ,{" "}
+                  <TextReveal
+                    as="span"
+                    text="Node.js"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 75%)"
+                    hoverColor="hsl(0, 0%, 96%)"
+                    direction="down"
+                    staggerDelay={25}
+                    duration={240}
+                    style={{ padding: "0 0.08em", fontWeight: 700, lineHeight: "inherit" }}
+                  />
+                  {" "}and{" "}
+                  <TextReveal
+                    as="span"
+                    text="Express.js"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 75%)"
+                    hoverColor="hsl(0, 0%, 96%)"
+                    direction="down"
+                    staggerDelay={25}
+                    duration={240}
+                    style={{ padding: "0 0.08em", fontWeight: 700, lineHeight: "inherit" }}
+                  />
+                  , I specialize in building end-to-end solutions that support high-concurrency environments. My focus is on delivering{" "}
+                  <TextReveal
+                    as="span"
+                    text="sub-200ms"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 75%)"
+                    hoverColor="hsl(0, 0%, 96%)"
+                    direction="up"
+                    staggerDelay={28}
+                    duration={260}
+                    style={{ padding: "0 0.08em", fontWeight: 700, lineHeight: "inherit" }}
+                  />{" "}
+                  response times and maintaining high standards of security and accessibility.
                 </p>
               </div>
 
