@@ -3,6 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
+import { TextHoverEffect } from "@/components/ui/text-hover-effect";
+
 interface Contact2Props {
   title?: string;
   description?: string;
@@ -24,9 +26,9 @@ export const Contact2 = ({
         <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-10 lg:flex-row lg:gap-20">
           <div className="flex max-w-sm flex-col justify-between gap-10">
             <div className="text-left">
-              <h1 className="mb-2 text-5xl font-semibold lg:mb-1 lg:text-6xl font-display italic">
-                {title.split(' ')[0]} <span className="text-accent">{title.split(' ').slice(1).join(' ')}</span>
-              </h1>
+              <div className="h-20 sm:h-24 md:h-28 w-full -ml-3 sm:-ml-4 md:-ml-5 mb-2">
+                <TextHoverEffect text={title.toUpperCase()} fontSize={24} />
+              </div>
               <p className="text-muted">{description}</p>
             </div>
             <div className="mx-auto w-fit lg:mx-0">
