@@ -61,7 +61,7 @@ export function Navbar() {
             window.scrollTo({ top: 0, behavior: "smooth" });
             setIsOpen(false);
           }}
-          className="text-xs sm:text-sm font-bold tracking-[0.25em] text-text-primary hover:opacity-80 transition-opacity duration-300 uppercase"
+          className="text-sm sm:text-base font-bold tracking-[0.25em] text-text-primary hover:opacity-80 transition-opacity duration-300 uppercase"
         >
           RISHABH PATIL
         </a>
@@ -73,7 +73,7 @@ export function Navbar() {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className="text-[11px] font-semibold tracking-[0.2em] text-muted hover:text-text-primary transition-colors duration-300 uppercase"
+                  className="text-[13px] font-semibold tracking-[0.2em] text-muted hover:text-text-primary transition-colors duration-300 uppercase"
                 >
                   {link.label}
                 </a>
@@ -89,9 +89,9 @@ export function Navbar() {
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-[11px] font-semibold tracking-[0.2em] text-muted hover:text-text-primary transition-colors duration-300 uppercase"
+            className="inline-flex items-center gap-1 text-[13px] font-semibold tracking-[0.2em] text-muted hover:text-text-primary transition-colors duration-300 uppercase"
           >
-            RESUME <ArrowUpRight className="w-3 h-3 opacity-60" />
+            RESUME <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
           </a>
         </nav>
 
@@ -118,7 +118,7 @@ export function Navbar() {
               <a
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-sm font-semibold tracking-[0.2em] text-muted hover:text-text-primary transition-colors duration-300 block py-2 uppercase"
+                className="text-base font-semibold tracking-[0.2em] text-muted hover:text-text-primary transition-colors duration-300 block py-2 uppercase"
               >
                 {link.label}
               </a>
@@ -134,7 +134,7 @@ export function Navbar() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => setIsOpen(false)}
-          className="inline-flex items-center justify-between text-sm font-semibold tracking-[0.2em] text-text-primary bg-surface border border-stroke/40 rounded-lg px-5 py-3 hover:bg-stroke transition-colors duration-300 uppercase"
+          className="inline-flex items-center justify-between text-base font-semibold tracking-[0.2em] text-text-primary bg-surface border border-stroke/40 rounded-lg px-5 py-3 hover:bg-stroke transition-colors duration-300 uppercase"
         >
           <span>VIEW RESUME</span>
           <ArrowUpRight className="w-4 h-4" />
