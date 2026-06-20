@@ -4,6 +4,7 @@ import { IntroSequence } from "./sections/IntroSequence";
 import { About } from "./sections/About";
 import { SectionParallaxReveal } from "./components/ui/about-parallax-reveal";
 import { EducationAndExperience } from "./sections/EducationAndExperience";
+import { Skills } from "./sections/Skills";
 import { SelectedWorks } from "./sections/SelectedWorks";
 import { ContactSection } from "./sections/ContactSection";
 import { CurtainFooter } from "./components/ui/motion-footer";
@@ -60,6 +61,7 @@ function AppContent({ isLoading }: { isLoading: boolean }) {
           <About />
         </SectionParallaxReveal>
         <EducationAndExperience />
+        <Skills />
         <SelectedWorks />
         <ContactSection />
         <CurtainFooter />
