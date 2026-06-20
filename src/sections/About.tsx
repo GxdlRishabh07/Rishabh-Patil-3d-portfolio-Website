@@ -100,8 +100,18 @@ export function About() {
             <div className="lg:w-2/3 flex flex-col gap-10 items-start text-left">
               <div className="flex items-center gap-6 about-title">
                 <div className="w-12 h-px bg-stroke" />
-                <h2 className="text-4xl md:text-6xl lg:text-7xl text-text-primary tracking-tight">
-                  About{" "}
+                <h2 className="text-4xl md:text-6xl lg:text-7xl text-text-primary tracking-tight flex flex-wrap items-center">
+                  <TextReveal
+                    as="span"
+                    text="About"
+                    fontSize="inherit"
+                    color="hsl(0, 0%, 96%)"
+                    hoverColor="hsl(0, 0%, 65%)"
+                    direction="up"
+                    staggerDelay={40}
+                    duration={320}
+                    style={{ padding: "0 0.05em 0 0", lineHeight: "inherit" }}
+                  />{" "}
                   <TextReveal
                     as="span"
                     text="Me"
@@ -120,92 +130,22 @@ export function About() {
               <div className="about-content space-y-6">
                 <p className="text-xl md:text-2xl text-text-primary/90 leading-relaxed font-medium">
                   I am a results-driven{" "}
-                  <TextReveal
-                    as="span"
-                    text="Full-Stack"
-                    fontSize="inherit"
-                    color="hsl(0, 0%, 90%)"
-                    hoverColor="hsl(0, 0%, 60%)"
-                    direction="up"
-                    staggerDelay={30}
-                    duration={280}
-                    style={{ padding: "0 0.1em", fontWeight: 800, lineHeight: "inherit" }}
-                  />{" "}
+                  <span className="font-extrabold text-text-primary px-[0.1em]">Full-Stack</span>{" "}
                   Software Developer with proven expertise in designing, developing, and deploying{" "}
-                  <TextReveal
-                    as="span"
-                    text="scalable"
-                    fontSize="inherit"
-                    color="hsl(0, 0%, 90%)"
-                    hoverColor="hsl(0, 0%, 55%)"
-                    direction="up"
-                    staggerDelay={35}
-                    duration={280}
-                    style={{ padding: "0 0.1em", fontWeight: 800, lineHeight: "inherit" }}
-                  />{" "}
+                  <span className="font-extrabold text-text-primary px-[0.1em]">scalable</span>{" "}
                   production-grade web applications.
                 </p>
                 <p className="text-base md:text-lg text-muted leading-relaxed">
                   With a strong proficiency in{" "}
-                  <TextReveal
-                    as="span"
-                    text="Java"
-                    fontSize="inherit"
-                    color="hsl(0, 0%, 75%)"
-                    hoverColor="hsl(0, 0%, 96%)"
-                    direction="down"
-                    staggerDelay={25}
-                    duration={240}
-                    style={{ padding: "0 0.08em", fontWeight: 700, lineHeight: "inherit" }}
-                  />
+                  <span className="font-bold text-text-primary px-[0.08em]">Java</span>
                   ,{" "}
-                  <TextReveal
-                    as="span"
-                    text="React.js"
-                    fontSize="inherit"
-                    color="hsl(0, 0%, 75%)"
-                    hoverColor="hsl(0, 0%, 96%)"
-                    direction="down"
-                    staggerDelay={25}
-                    duration={240}
-                    style={{ padding: "0 0.08em", fontWeight: 700, lineHeight: "inherit" }}
-                  />
+                  <span className="font-bold text-text-primary px-[0.08em]">React.js</span>
                   ,{" "}
-                  <TextReveal
-                    as="span"
-                    text="Node.js"
-                    fontSize="inherit"
-                    color="hsl(0, 0%, 75%)"
-                    hoverColor="hsl(0, 0%, 96%)"
-                    direction="down"
-                    staggerDelay={25}
-                    duration={240}
-                    style={{ padding: "0 0.08em", fontWeight: 700, lineHeight: "inherit" }}
-                  />
+                  <span className="font-bold text-text-primary px-[0.08em]">Node.js</span>
                   {" "}and{" "}
-                  <TextReveal
-                    as="span"
-                    text="Express.js"
-                    fontSize="inherit"
-                    color="hsl(0, 0%, 75%)"
-                    hoverColor="hsl(0, 0%, 96%)"
-                    direction="down"
-                    staggerDelay={25}
-                    duration={240}
-                    style={{ padding: "0 0.08em", fontWeight: 700, lineHeight: "inherit" }}
-                  />
+                  <span className="font-bold text-text-primary px-[0.08em]">Express.js</span>
                   , I specialize in building end-to-end solutions that support high-concurrency environments. My focus is on delivering{" "}
-                  <TextReveal
-                    as="span"
-                    text="sub-200ms"
-                    fontSize="inherit"
-                    color="hsl(0, 0%, 75%)"
-                    hoverColor="hsl(0, 0%, 96%)"
-                    direction="up"
-                    staggerDelay={28}
-                    duration={260}
-                    style={{ padding: "0 0.08em", fontWeight: 700, lineHeight: "inherit" }}
-                  />{" "}
+                  <span className="font-bold text-text-primary px-[0.08em]">sub-200ms</span>{" "}
                   response times and maintaining high standards of security and accessibility.
                 </p>
               </div>
