@@ -70,8 +70,8 @@ const SKILLS = [
 
 export function Skills() {
   return (
-    <section id="skills" className="relative py-24 md:py-32 overflow-hidden bg-bg">
-      <SpotlightGradientBg overflowHidden={false}>
+    <section id="skills" className="relative bg-black w-full overflow-visible">
+      <SpotlightGradientBg overflowHidden={false} className="py-24 md:py-32">
         <div className="max-w-[1200px] w-full mx-auto px-6 md:px-10 lg:px-16 mb-16">
           <div className="flex items-center gap-6">
             <div className="w-12 h-px bg-stroke" />
