@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SocialConnect } from "@/components/ui/connect-with-us";
+import { Link } from "react-router-dom";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -163,7 +164,7 @@ export function CurtainFooter() {
           {/* Copyright */}
           <div className="flex items-center gap-4 text-xs text-white/50">
             <span>© {new Date().getFullYear()} Rishabh Patil. Built with React &amp; Vite.</span>
-            <a href="/admin" className="hover:text-accent transition-colors">Admin Login</a>
+            <Link to="/admin" className="hover:text-accent transition-colors">Admin Login</Link>
           </div>
 
           {/* Back to Top */}
