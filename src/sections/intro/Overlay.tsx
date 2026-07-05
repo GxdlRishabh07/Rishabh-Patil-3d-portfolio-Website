@@ -29,35 +29,34 @@ export function Overlay({ containerScroll }: { containerScroll: MotionValue<numb
   const y3 = useTransform(containerScroll, [0.5, 0.85], ["10vh", "-10vh"]);
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-30 text-white font-sans overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none z-30 font-sans overflow-hidden">
       {/* Section 1 */}
-      <motion.div 
+      <motion.div
         style={{ opacity: hasPassed1 ? 0 : opacity1Raw, y: y1 }}
-        className="absolute inset-0 flex items-center justify-center p-8"
+        className="absolute inset-0 flex items-start justify-start p-4 sm:p-8 md:p-24 pt-24 sm:pt-20 md:pt-28"
       >
-        <h1 className="text-4xl md:text-7xl font-bold tracking-tighter text-center drop-shadow-2xl">
-          Rishabh Patil.<br/>
-          <span className="text-2xl md:text-5xl font-medium text-gray-300">Creative Developer.</span>
+        <h1 className="text-4xl md:text-7xl font-bold tracking-tighter text-left max-w-xl drop-shadow-2xl">
+          <span className="text-xl sm:text-2xl md:text-5xl font-medium text-black">Creative Developer.</span>
         </h1>
       </motion.div>
 
       {/* Section 2 */}
-      <motion.div 
+      <motion.div
         style={{ opacity: opacity2, y: y2 }}
-        className="absolute inset-0 flex items-center justify-start p-8 md:p-24"
+        className="absolute inset-0 flex items-center justify-end p-4 sm:p-8 md:p-24"
       >
-        <h2 className="text-3xl md:text-6xl font-bold tracking-tight text-left max-w-2xl drop-shadow-2xl">
-          I build digital experiences.
+        <h2 className="text-xl sm:text-2xl md:text-5xl font-bold tracking-tight text-right max-w-xl drop-shadow-2xl text-black">
+          Welcome to my Portfolio.
         </h2>
       </motion.div>
 
       {/* Section 3 */}
-      <motion.div 
+      <motion.div
         style={{ opacity: opacity3, y: y3 }}
-        className="absolute inset-0 flex items-center justify-end p-8 md:p-24"
+        className="absolute inset-0 flex items-center justify-end p-4 sm:p-8 md:p-24"
       >
-        <h2 className="text-3xl md:text-6xl font-bold tracking-tight text-right max-w-2xl drop-shadow-2xl">
-          Bridging design and engineering.
+        <h2 className="text-xl sm:text-2xl md:text-5xl font-bold tracking-tight text-right max-w-xl drop-shadow-2xl text-black">
+          Hi myself Rishabh Patil
         </h2>
       </motion.div>
     </div>

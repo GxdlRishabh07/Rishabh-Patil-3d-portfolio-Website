@@ -4,7 +4,15 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import ReactLenis from "lenis/react"
 import { useRef } from "react"
 
-const defaultProjects = [
+interface ProjectItem {
+  title: string
+  src: string
+  category?: string
+  link?: string
+  linkLabel?: string
+}
+
+const defaultProjects: ProjectItem[] = [
   {
     title: "Project 1",
     src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop&crop=center",
@@ -31,6 +39,8 @@ const StickyCard_001 = ({
   i,
   title,
   src,
+  link,
+  linkLabel,
   progress,
   range,
   targetScale,
@@ -38,7 +48,9 @@ const StickyCard_001 = ({
   i: number
   title: string
   src: string
-  progress: any
+  link?: string
+  linkLabel?: string
+  progress: import("framer-motion").MotionValue<number>
   range: [number, number]
   targetScale: number
 }) => {
@@ -57,16 +69,33 @@ const StickyCard_001 = ({
                    h-[220px] w-[320px] 
                    sm:h-[320px] sm:w-[480px] 
                    md:h-[420px] md:w-[680px] 
-                   lg:h-[520px] lg:w-[850px]"
+                   lg:h-[520px] lg:w-[850px]
+                   group"
       >
-        <img src={src || "/placeholder.svg"} alt={title} className="h-full w-full object-cover" />
+        {link ? (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full h-full block relative cursor-pointer overflow-hidden"
+          >
+            <img src={src || "/placeholder.svg"} alt={title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-black/10 md:bg-black/40 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-end md:items-center justify-center pb-6 md:pb-0">
+              <span className="text-white text-sm font-semibold tracking-wider bg-black/60 md:bg-white/15 px-6 py-3 md:px-5 md:py-2.5 rounded-full border border-white/20 backdrop-blur-md md:backdrop-blur-sm transition-all hover:bg-white/25 shadow-xl">
+                {linkLabel || "View Project GitHub"}
+              </span>
+            </div>
+          </a>
+        ) : (
+          <img src={src || "/placeholder.svg"} alt={title} className="h-full w-full object-cover" />
+        )}
       </motion.div>
     </div>
   )
 }
 
 interface ImagesScrollingAnimationProps {
-  projectsList?: { title: string; category?: string; src: string }[]
+  projectsList?: ProjectItem[]
 }
 
 const ImagesScrollingAnimation = ({ projectsList }: ImagesScrollingAnimationProps) => {
@@ -95,6 +124,8 @@ const ImagesScrollingAnimation = ({ projectsList }: ImagesScrollingAnimationProp
               i={i}
               title={project.title}
               src={project.src}
+              link={project.link}
+              linkLabel={project.linkLabel}
               progress={scrollYProgress}
               range={[i * step, 1]}
               targetScale={targetScale}

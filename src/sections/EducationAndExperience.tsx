@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { GraduationCap, Briefcase, Calendar, MapPin } from "lucide-react";
+import { GraduationCap, Briefcase, Calendar, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import { SpotlightGradientBg } from "@/components/ui/spotlight-gradient";
 import {
   ScrollXCarousel,
@@ -35,20 +35,20 @@ const ITEMS = [
     organization: "MIT World Peace University",
     location: "Pune, India",
     period: "2024 — Present",
-    description: "Specializing in full-stack development, distributed systems, and cloud architecture. Coursework includes advanced algorithms, database design, and software engineering.",
+    description: "I am currently pursuing a Master of Computer Applications (MCA) at MIT World Peace University (MIT-WPU). I am focused on becoming a software developer, with a long-term goal of securing a role at a MAANG-level company. My primary areas of study include Data Structures and Algorithms (DSA), Core Java, web development, and AI integration. I am also building a major project, InternSphere, to strengthen my technical skills and placement profile.",
     current: true,
     imageUrl: "/mitwpu.jpg",
   },
   {
     id: "exp-2",
     type: "Experience",
-    title: "Software Engineering Intern",
+    title: "Freelancer 3d-Portfolio Website",
     organization: "Tech Solutions Inc.",
     location: "Remote",
     period: "2023",
     description: "Collaborated with the development team to build features for a SaaS platform. Optimized React components for performance, reducing load times by 15%. Assisted in writing RESTful APIs in Node.js.",
     current: false,
-    imageUrl: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=800&auto=format&fit=crop",
+    imageUrl: "/code.jpg",
   },
   {
     id: "edu-2",
@@ -66,11 +66,38 @@ const ITEMS = [
 export function EducationAndExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const handleScroll = (direction: "left" | "right") => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const scrollTop = window.scrollY;
+    const sectionStart = scrollTop + rect.top;
+    const scrollRange = window.innerHeight * 1.2; // 220vh - 100vh = 120vh
+    const currentScrollPos = scrollTop - sectionStart;
+    const step = scrollRange / 3;
+
+    let targetIndex;
+    if (direction === "right") {
+      targetIndex = Math.min(3, Math.round(currentScrollPos / step) + 1);
+    } else {
+      targetIndex = Math.max(0, Math.round(currentScrollPos / step) - 1);
+    }
+
+    const targetScrollY = sectionStart + targetIndex * step;
+
+    window.scrollTo({
+      top: targetScrollY,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section id="education-and-experience" ref={containerRef} className="relative">
       <SpotlightGradientBg overflowHidden={false}>
-        <ScrollXCarousel className="h-[220vh]">
-          <ScrollXCarouselContainer className="h-dvh flex flex-col justify-center gap-10 py-12">
+        
+        {/* Desktop / Tablet Horizontal Scroll */}
+        <div className="hidden md:block">
+          <ScrollXCarousel className="h-[220vh]">
+            <ScrollXCarouselContainer className="h-dvh flex flex-col justify-center gap-10 py-12">
 
             {/* Header */}
             <div className="max-w-[1200px] w-full mx-auto px-6 md:px-10 lg:px-16">
@@ -205,13 +232,113 @@ export function EducationAndExperience() {
               ))}
             </ScrollXCarouselWrap>
 
+            {/* Navigation Buttons */}
+            <div className="absolute inset-x-0 bottom-[30vh] z-30 pointer-events-none flex justify-between px-4 md:px-8">
+              <button
+                onClick={() => handleScroll("left")}
+                className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-surface/80 hover:bg-bg border border-stroke text-text-primary flex items-center justify-center transition-all cursor-pointer shadow-2xl group pointer-events-auto"
+                aria-label="Previous item"
+              >
+                <ChevronLeft className="w-7 h-7 md:w-8 md:h-8 transition-transform group-hover:-translate-x-0.5" />
+              </button>
+              <button
+                onClick={() => handleScroll("right")}
+                className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-surface/80 hover:bg-bg border border-stroke text-text-primary flex items-center justify-center transition-all cursor-pointer shadow-2xl group pointer-events-auto"
+                aria-label="Next item"
+              >
+                <ChevronRight className="w-7 h-7 md:w-8 md:h-8 transition-transform group-hover:translate-x-0.5" />
+              </button>
+            </div>
+
             {/* Scroll Progress Indicator */}
             <ScrollXCarouselProgress
               className="bg-stroke/30 mx-auto w-[200px] h-1 rounded-full overflow-hidden"
               progressStyle="size-full bg-accent rounded-full"
             />
-          </ScrollXCarouselContainer>
-        </ScrollXCarousel>
+            </ScrollXCarouselContainer>
+          </ScrollXCarousel>
+        </div>
+
+        {/* Mobile Vertical Stack */}
+        <div className="md:hidden flex flex-col gap-8 px-6 py-16 w-full relative z-10">
+          <div className="flex flex-col gap-2 mb-2">
+            <div className="flex items-center gap-4 mb-2">
+              <div className="w-8 h-px bg-stroke" />
+              <span className="text-xs text-muted uppercase tracking-[0.2em]">Career & Academics</span>
+            </div>
+            <h2 className="text-4xl text-text-primary tracking-tight font-semibold flex items-center gap-x-2">
+              <span>Education</span>
+              <span className="font-display italic text-3xl opacity-80">&amp; Experience</span>
+            </h2>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            {ITEMS.map((item) => (
+              <div
+                key={item.id}
+                className="w-full aspect-[4/5] sm:aspect-square rounded-3xl border border-stroke bg-surface/50 overflow-hidden relative shadow-lg"
+              >
+                <img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  className="absolute inset-0 w-full h-full object-cover filter brightness-[0.3]"
+                />
+                
+                <div className="relative h-full p-6 sm:p-8 flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <Badge className={cn(
+                        "text-xs px-3 py-1 rounded-full font-semibold border-0",
+                        item.type === "Education" ? "bg-indigo-500/20 text-indigo-300" : "bg-emerald-500/20 text-emerald-300"
+                      )}>
+                        {item.type}
+                      </Badge>
+                      <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-stroke backdrop-blur-md">
+                        {item.type === "Education" ? (
+                          <GraduationCap className="w-5 h-5 text-indigo-400" />
+                        ) : (
+                          <Briefcase className="w-5 h-5 text-emerald-400" />
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h3 className="text-2xl font-bold text-white tracking-tight">
+                        {item.title}
+                      </h3>
+                      <p className="text-lg text-white/90 font-medium font-display italic">
+                        {item.organization}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-4 text-sm text-white/60">
+                      <span className="flex items-center gap-1.5">
+                        <MapPin className="w-4 h-4 text-white/40" />
+                        {item.location}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="w-4 h-4 text-white/40" />
+                        {item.period}
+                      </span>
+                    </div>
+
+                    <p className="text-sm text-white/80 leading-relaxed font-light line-clamp-4">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  {item.current && (
+                    <div className="inline-flex items-center gap-2 text-xs font-semibold text-accent bg-accent/10 px-4 py-2 rounded-full w-fit border border-accent/20 backdrop-blur-md">
+                      <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                      Currently Active
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </SpotlightGradientBg>
     </section>
   );

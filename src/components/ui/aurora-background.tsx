@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/purity */
 "use client";
 
 import React from "react";
@@ -31,6 +32,16 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
   ariaLabel = "Animated aurora background",
 }) => {
   const [colorA, colorB] = gradientColors;
+
+  const stars = React.useMemo(() => {
+    return Array.from({ length: starCount }).map(() => ({
+      x: `${Math.random() * 100}vw`,
+      y: `${Math.random() * 100}vh`,
+      opacityMax: Math.random() * 0.8,
+      duration: Math.random() * 3 + 2,
+      delay: Math.random() * 5,
+    }));
+  }, [starCount]);
 
   return (
     <div
@@ -111,22 +122,22 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
         </motion.div>
 
         {/* Twinkling stars */}
-        {Array.from({ length: starCount }).map((_, i) => (
+        {stars.map((star, i) => (
           <motion.div
             key={i}
             className="absolute w-0.5 h-0.5 bg-white rounded-full"
             initial={{
-              x: `${Math.random() * 100}vw`,
-              y: `${Math.random() * 100}vh`,
+              x: star.x,
+              y: star.y,
               opacity: 0,
             }}
             animate={{
-              opacity: [0, Math.random() * 0.8, 0],
+              opacity: [0, star.opacityMax, 0],
             }}
             transition={{
-              duration: Math.random() * 3 + 2,
+              duration: star.duration,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: star.delay,
             }}
           />
         ))}

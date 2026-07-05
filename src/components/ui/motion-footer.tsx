@@ -161,8 +161,9 @@ export function CurtainFooter() {
           </div>
 
           {/* Copyright */}
-          <div className="text-xs text-white/50">
-            © {new Date().getFullYear()} Rishabh Patil. Built with React &amp; Vite.
+          <div className="flex items-center gap-4 text-xs text-white/50">
+            <span>© {new Date().getFullYear()} Rishabh Patil. Built with React &amp; Vite.</span>
+            <a href="/admin" className="hover:text-accent transition-colors">Admin Login</a>
           </div>
 
           {/* Back to Top */}

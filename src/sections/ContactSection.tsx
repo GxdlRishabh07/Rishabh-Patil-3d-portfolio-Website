@@ -1,5 +1,3 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { Contact2 } from "@/components/ui/contact-2";
 import { AuroraBackground } from "@/components/ui/aurora-background";

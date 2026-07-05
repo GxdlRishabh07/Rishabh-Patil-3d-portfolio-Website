@@ -12,7 +12,7 @@ const WORKS = [
     colSpan: "md:col-span-6",
     displayType: "showcase",
     tech: ["Java", "Spring Boot", "React", "PostgreSQL"],
-    github: "#",
+    github: "https://github.com/GxdlRishabh07/InternSphere-",
     live: "#"
   },
   {
@@ -21,8 +21,8 @@ const WORKS = [
     image: "/tidewave.jpg",
     colSpan: "md:col-span-6",
     tech: ["React", "Node.js", "Express", "MongoDB"],
-    github: "#",
-    live: "#"
+    github: "https://github.com/GxdlRishabh07/tidewave-andaman.git",
+    live: "https://tidewave-andaman.vercel.app/"
   },
 ];
 
@@ -82,9 +82,9 @@ export function SelectedWorks() {
               </p>
             </div>
 
-            <button className="hidden md:inline-flex group relative rounded-full items-center gap-2 text-sm px-6 py-3 bg-surface text-text-primary transition-all duration-300">
+            <button className="inline-flex md:inline-flex group relative rounded-full items-center justify-center gap-2 text-sm px-6 py-3 bg-surface text-text-primary transition-all duration-300 w-full sm:w-fit mt-4 md:mt-0">
               <div className="absolute -inset-[1px] rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative z-10 flex items-center gap-2 bg-surface px-6 py-3 rounded-full -m-[12px] group-hover:bg-bg transition-colors">
+              <span className="relative z-10 flex w-full justify-center items-center gap-2 bg-surface px-6 py-3 rounded-full -m-[12px] group-hover:bg-bg transition-colors">
                 View all work <ArrowRight className="w-4 h-4" />
               </span>
             </button>
@@ -97,6 +97,8 @@ export function SelectedWorks() {
                 title: work.title,
                 category: work.category,
                 src: work.image,
+                link: work.live !== "#" ? work.live : work.github,
+                linkLabel: work.live !== "#" ? "View Live Site" : "View Project GitHub",
               }))}
             />
           </div>

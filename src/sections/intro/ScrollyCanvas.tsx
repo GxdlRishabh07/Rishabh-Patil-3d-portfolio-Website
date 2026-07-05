@@ -13,7 +13,7 @@ function getCurrentFrame(index: number) {
 
 export function ScrollyCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   
   // 500vh container ref for a long cinematic scroll
@@ -26,22 +26,37 @@ export function ScrollyCanvas() {
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, FRAME_COUNT - 1]);
 
   useEffect(() => {
-    // Preload images to prevent flickering/white flashes
-    const loadedImages: HTMLImageElement[] = [];
     let loadedCount = 0;
+    const initialLoadCount = Math.min(10, FRAME_COUNT);
+    const imgs = new Array(FRAME_COUNT);
     
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
-      img.src = getCurrentFrame(i);
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === FRAME_COUNT) {
-          setIsLoaded(true);
-        }
+      imgs[i] = img;
+      
+      const loadImg = () => {
+        img.src = getCurrentFrame(i);
+        img.onload = () => {
+          loadedCount++;
+          if (loadedCount === initialLoadCount) {
+            setIsLoaded(true);
+          }
+        };
       };
-      loadedImages.push(img);
+
+      if (i < initialLoadCount) {
+        loadImg();
+      } else {
+        // Defer loading the remaining frames to improve initial load time
+        if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (window as any).requestIdleCallback(() => loadImg(), { timeout: 2000 });
+        } else {
+          setTimeout(loadImg, 500 + i * 20);
+        }
+      }
     }
-    setImages(loadedImages);
+    imagesRef.current = imgs;
   }, []);
 
   useEffect(() => {
@@ -52,8 +67,8 @@ export function ScrollyCanvas() {
     if (!ctx) return;
     
     const render = (index: number) => {
-      const img = images[Math.round(index)];
-      if (!img) return;
+      const img = imagesRef.current[Math.round(index)];
+      if (!img || !img.complete || img.naturalWidth === 0) return;
       
       // Calculate object-fit: cover logic
       const canvasWidth = canvas.width;
@@ -103,7 +118,7 @@ export function ScrollyCanvas() {
       unsubscribe();
       window.removeEventListener("resize", handleResize);
     };
-  }, [isLoaded, frameIndex, images]);
+  }, [isLoaded, frameIndex]);
 
   return (
     <div ref={containerRef} className="h-[500vh] relative bg-black">

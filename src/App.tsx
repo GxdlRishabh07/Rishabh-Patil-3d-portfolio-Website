@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { LoadingScreen } from "./components/LoadingScreen";
 import { IntroSequence } from "./sections/IntroSequence";
 import { About } from "./sections/About";
@@ -11,6 +11,9 @@ import { CurtainFooter } from "./components/ui/motion-footer";
 import { ReactLenis, useLenis } from "lenis/react";
 import { Navbar } from "./components/Navbar";
 import gsap from "gsap";
+import { Routes, Route } from "react-router-dom";
+
+const AdminPage = lazy(() => import("./pages/AdminPage").then(module => ({ default: module.AdminPage })));
 
 function AppContent({ isLoading }: { isLoading: boolean }) {
   const lenis = useLenis();
@@ -70,7 +73,7 @@ function AppContent({ isLoading }: { isLoading: boolean }) {
   );
 }
 
-function App() {
+function HomeRoute() {
   const [isLoading, setIsLoading] = useState(true);
 
   // Prevent scrolling while loading
@@ -82,6 +85,11 @@ function App() {
       // Ensure we're at the top on reload after loading screen
       window.scrollTo(0, 0);
     }
+    
+    // Cleanup on unmount to ensure scroll is restored
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, [isLoading]);
 
   return (
@@ -99,6 +107,19 @@ function App() {
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
       <AppContent isLoading={isLoading} />
     </ReactLenis>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomeRoute />} />
+      <Route path="/admin" element={
+        <Suspense fallback={<div className="h-screen w-full bg-black" />}>
+          <AdminPage />
+        </Suspense>
+      } />
+    </Routes>
   );
 }
 

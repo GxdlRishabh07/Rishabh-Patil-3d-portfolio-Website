@@ -1,1 +1,0 @@
-{"nodes": [{"id": "footer_footer", "label": "Footer", "file_type": "code", "source_file": "src/sections/Footer.tsx"}], "edges": [{"source": "footer_footer", "target": "connect_with_us_socialconnect", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0, "source_file": "src/sections/Footer.tsx"}], "hyperedges": []}

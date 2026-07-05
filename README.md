@@ -1,73 +1,134 @@
-# React + TypeScript + Vite
+# Rishabh Patil — Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A premium, cinematic personal portfolio built with React 19, Vite, GSAP, Framer Motion, and Tailwind CSS v4.
 
-Currently, two official plugins are available:
+![Portfolio Preview](./public/new-profile.jpg)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Cinematic Intro Sequence** — 128-frame scroll-driven canvas animation
+- **3D GSAP Scroll Animations** — perspective transforms synced to scroll via GSAP ScrollTrigger + Lenis
+- **Premium Glassmorphic Navbar** — dynamically switches color modes based on scroll depth
+- **Stacked Card Projects** — sticky scroll with scale-depth illusion
+- **Aurora & Spotlight Backgrounds** — GPU-accelerated ambient effects
+- **Marquee Text Animations** — infinite velocity-aware scrolling text
+- **Contact Form with Supabase** — form submissions stored in Supabase DB
+- **Admin Dashboard** — protected `/admin` route with auth, role-based access, and message management
+- **Fully Responsive** — mobile-first with dedicated mobile layouts
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Layer | Tools |
+|-------|-------|
+| Framework | React 19 + TypeScript (strict) |
+| Build | Vite 8 + `@vitejs/plugin-react` |
+| Styling | Tailwind CSS v4 |
+| Animations | GSAP 3 (ScrollTrigger) + Framer Motion + Lenis |
+| UI Primitives | Radix UI, class-variance-authority (CVA) |
+| Backend | Supabase (Auth + PostgreSQL) |
+| Icons | Lucide React |
+| Routing | React Router DOM v7 |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ and [pnpm](https://pnpm.io/) installed
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/GxdlRishabh07/PFORTLIO.git
+cd PFORTLIO
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Install dependencies
+```bash
+pnpm install
 ```
+
+### 3. Configure environment variables
+Copy the example file and fill in your Supabase credentials:
+```bash
+cp .env.example .env.local
+```
+
+Open `.env.local` and add your values:
+```
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+> You can find these in your [Supabase Dashboard](https://supabase.com) → Project Settings → API.
+
+### 4. Start the dev server
+```bash
+pnpm dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## 🗂️ Project Structure
+
+```
+src/
+├── components/
+│   ├── ui/              # Reusable UI primitives
+│   ├── LoadingScreen.tsx
+│   └── Navbar.tsx
+├── sections/            # Page sections
+│   ├── intro/           # Scroll canvas intro
+│   ├── About.tsx
+│   ├── EducationAndExperience.tsx
+│   ├── SelectedWorks.tsx
+│   ├── Skills.tsx
+│   ├── ContactSection.tsx
+│   └── Footer.tsx
+├── pages/
+│   └── AdminPage.tsx    # Protected admin dashboard
+├── lib/
+│   ├── supabase.ts      # Supabase client
+│   └── utils.ts         # cn() utility
+├── App.tsx              # Root: Lenis + GSAP setup, routing
+└── index.css            # Tailwind v4 design tokens
+```
+
+---
+
+## 📦 Build for Production
+
+```bash
+pnpm build
+```
+
+Preview the production build:
+```bash
+pnpm preview
+```
+
+---
+
+## 🔗 Projects Featured
+
+| Project | Tech | Link |
+|---------|------|------|
+| **InternSphere** | Java, Spring Boot, React, PostgreSQL | [GitHub](https://github.com/GxdlRishabh07/InternSphere-) |
+| **TideWave Andaman** | React, Node.js, Express, MongoDB | [Live Site](https://tidewave-andaman.vercel.app/) |
+
+---
+
+## 📬 Contact
+
+- **Email:** patilrishabh50@gmail.com
+- **GitHub:** [@GxdlRishabh07](https://github.com/GxdlRishabh07)
+- **Location:** Pune, India
+
+---
+
+© 2025 Rishabh Patil. Built with React & Vite.

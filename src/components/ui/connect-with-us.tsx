@@ -5,7 +5,7 @@ export const SocialConnect = ({ className }: { className?: string }) => {
   const socials = [
     {
       name: "Instagram",
-      href: "#",
+      href: "https://www.instagram.com/rishabh_patil.07/",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-white">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -60,7 +60,7 @@ export const SocialConnect = ({ className }: { className?: string }) => {
                   social.hoverClass
                 )}>
                   {/* Smaller Icon */}
-                  {React.cloneElement(social.icon as React.ReactElement<any>, { className: "h-5 w-5 md:h-6 md:w-6 text-white transition-all duration-300" })}
+                  {React.cloneElement(social.icon as React.ReactElement<{ className?: string }>, { className: "h-5 w-5 md:h-6 md:w-6 text-white transition-all duration-300" })}
                   {/* Internal Glow Effect */}
                   <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.3)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>

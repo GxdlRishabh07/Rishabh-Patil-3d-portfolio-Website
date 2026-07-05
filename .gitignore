@@ -26,3 +26,21 @@ dist-ssr
 # Graphify cache (auto-generated)
 graphify-out/
 graphify-new/
+
+# Environment variables — NEVER commit real secrets
+.env
+.env.local
+.env.*.local
+# Keep the example template committed
+!.env.example
+
+# Large build/tool artifacts in project root
+ezgif-split.zip
+Image Background Remover.png
+lint_output.txt
+
+# Local pnpm cache (not needed in repo)
+.pnpm-store/
+
+# Local scratch images
+images/

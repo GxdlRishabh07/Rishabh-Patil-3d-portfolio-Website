@@ -13,10 +13,11 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const [introHeight, setIntroHeight] = useState(2000);
+  const [introHeight, setIntroHeight] = useState(
+    typeof window !== "undefined" ? window.innerHeight * 4.8 : 2000
+  );
 
   useEffect(() => {
-    setIntroHeight(window.innerHeight * 4.8);
     const handleResize = () => setIntroHeight(window.innerHeight * 4.8);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -61,7 +62,10 @@ export function Navbar() {
             window.scrollTo({ top: 0, behavior: "smooth" });
             setIsOpen(false);
           }}
-          className="text-sm sm:text-base font-bold tracking-[0.25em] text-text-primary hover:opacity-80 transition-opacity duration-300 uppercase"
+          className={cn(
+            "text-sm sm:text-base font-bold tracking-[0.25em] hover:opacity-80 transition-all duration-300 uppercase",
+            scrolled || isOpen ? "text-white" : "text-black"
+          )}
         >
           RISHABH PATIL
         </a>
@@ -73,7 +77,10 @@ export function Navbar() {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className="text-[13px] font-semibold tracking-[0.2em] text-muted hover:text-text-primary transition-colors duration-300 uppercase"
+                  className={cn(
+                    "text-[13px] font-semibold tracking-[0.2em] transition-colors duration-300 uppercase",
+                    scrolled || isOpen ? "text-white/70 hover:text-white" : "text-black/60 hover:text-black"
+                  )}
                 >
                   {link.label}
                 </a>
@@ -82,14 +89,20 @@ export function Navbar() {
           </ul>
 
           {/* Divider */}
-          <span className="h-3 w-[1px] bg-stroke/60 block" />
+          <span className={cn(
+            "h-3 w-[1px] block transition-colors duration-300",
+            scrolled || isOpen ? "bg-white/20" : "bg-black/20"
+          )} />
 
           {/* Resume link */}
           <a
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-[13px] font-semibold tracking-[0.2em] text-muted hover:text-text-primary transition-colors duration-300 uppercase"
+            className={cn(
+              "inline-flex items-center gap-1 text-[13px] font-semibold tracking-[0.2em] transition-colors duration-300 uppercase",
+              scrolled || isOpen ? "text-white/70 hover:text-white" : "text-black/60 hover:text-black"
+            )}
           >
             RESUME <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
           </a>
@@ -98,27 +111,30 @@ export function Navbar() {
         {/* Mobile Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="block md:hidden text-text-primary p-1 hover:opacity-80 transition-opacity"
+          className={cn(
+            "block md:hidden hover:opacity-80 transition-all duration-300 w-12 h-12 flex items-center justify-center -mr-3",
+            scrolled || isOpen ? "text-white" : "text-black"
+          )}
           aria-label="Toggle menu"
         >
-          {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
       {/* Mobile Menu Panel */}
       <div
         className={cn(
-          "fixed inset-0 top-[60px] bg-bg/95 backdrop-blur-xl z-40 flex flex-col justify-start px-8 py-12 transition-all duration-300 md:hidden",
+          "fixed inset-0 top-[60px] bg-black/95 backdrop-blur-xl z-40 flex flex-col justify-start px-8 py-12 transition-all duration-300 md:hidden",
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
       >
-        <ul className="flex flex-col gap-6 mb-8">
+        <ul className="flex flex-col mb-8">
           {NAV_LINKS.map((link) => (
             <li key={link.label}>
               <a
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-base font-semibold tracking-[0.2em] text-muted hover:text-text-primary transition-colors duration-300 block py-2 uppercase"
+                className="text-base font-semibold tracking-[0.2em] text-muted hover:text-text-primary transition-colors duration-300 block py-4 uppercase"
               >
                 {link.label}
               </a>

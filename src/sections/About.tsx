@@ -94,7 +94,7 @@ export function About() {
         <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-black via-black/50 to-transparent pointer-events-none z-10" />
         
         <div className="relative max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16 z-10">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+          <div className="flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-20 items-center">
             
             {/* Content Block */}
             <div className="lg:w-2/3 flex flex-col gap-10 items-start text-left">
@@ -129,24 +129,10 @@ export function About() {
 
               <div className="about-content space-y-6">
                 <p className="text-xl md:text-2xl text-text-primary/90 leading-relaxed font-medium">
-                  I am a results-driven{" "}
-                  <span className="font-extrabold text-text-primary px-[0.1em]">Full-Stack</span>{" "}
-                  Software Developer with proven expertise in designing, developing, and deploying{" "}
-                  <span className="font-extrabold text-text-primary px-[0.1em]">scalable</span>{" "}
-                  production-grade web applications.
+                  I'm a dedicated <span className="font-extrabold text-text-primary px-[0.1em]">MCA student</span> at <span className="font-extrabold text-text-primary px-[0.1em]">MIT-WPU</span> with a strong passion for <span className="font-extrabold text-text-primary px-[0.1em]">full-stack web development</span> and a proven ability to leverage multiple <span className="font-extrabold text-text-primary px-[0.1em]">AI models</span> to solve complex problems.
                 </p>
                 <p className="text-base md:text-lg text-muted leading-relaxed">
-                  With a strong proficiency in{" "}
-                  <span className="font-bold text-text-primary px-[0.08em]">Java</span>
-                  ,{" "}
-                  <span className="font-bold text-text-primary px-[0.08em]">React.js</span>
-                  ,{" "}
-                  <span className="font-bold text-text-primary px-[0.08em]">Node.js</span>
-                  {" "}and{" "}
-                  <span className="font-bold text-text-primary px-[0.08em]">Express.js</span>
-                  , I specialize in building end-to-end solutions that support high-concurrency environments. My focus is on delivering{" "}
-                  <span className="font-bold text-text-primary px-[0.08em]">sub-200ms</span>{" "}
-                  response times and maintaining high standards of security and accessibility.
+                  I have successfully delivered numerous <span className="font-bold text-text-primary px-[0.08em]">freelance projects</span>, deploying them with high quality and real-world impact. I’m driven to grow, innovate, and bring significant value to every project I pursue.
                 </p>
               </div>
 
@@ -154,7 +140,7 @@ export function About() {
                 <div className="sm:text-left">
                   <h4 className="text-xs text-muted uppercase tracking-[0.2em] mb-4">Philosophy</h4>
                   <p className="text-sm text-text-primary/80 leading-relaxed">
-                    I believe in the power of MVC architecture and relational database schema design to create maintainable, efficient systems that grow with the user's needs.
+                    As a passionate MCA student at MIT-WPU, I believe in the power of continuous learning and purposeful innovation. I strive to bridge technology and human experience through full-stack web development and the strategic use of AI models. While I am early in my professional journey, I bring a fresh perspective, a commitment to excellence, and a drive to create real-world impact through every project I take on. I am excited to collaborate, grow, and deliver innovative solutions that make a difference.
                   </p>
                 </div>
                 <div className="sm:text-left">
@@ -180,15 +166,20 @@ export function About() {
               </div>
             </div>
 
-            {/* Profile Picture */}
-            <div className="lg:w-1/3 about-content">
-              <div className="relative group about-image-container">
-                <div className="absolute -inset-4 accent-gradient opacity-0 group-hover:opacity-40 blur-2xl transition-opacity duration-500" />
-                <div className="relative rounded-3xl overflow-hidden aspect-[3/4] border border-stroke shadow-2xl bg-black">
+            <div className="lg:w-1/3 about-content flex justify-center lg:justify-end w-full">
+              <div className="relative group about-image-container w-full max-w-[280px] md:max-w-[340px] mx-auto lg:mx-0">
+                <div className="absolute -inset-4 accent-gradient opacity-0 group-hover:opacity-40 blur-2xl transition-opacity duration-500 rounded-full" />
+                <div 
+                  className="relative overflow-hidden aspect-[3/4] flex items-center justify-center"
+                  style={{
+                    maskImage: "radial-gradient(ellipse at 50% 45%, black 85%, transparent 100%)",
+                    WebkitMaskImage: "radial-gradient(ellipse at 50% 45%, black 85%, transparent 100%)"
+                  }}
+                >
                   <img 
-                    src="/profile.png" 
+                    src="/new-profile.png" 
                     alt="Rishabh Patil" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover object-[45%_center] transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               </div>
