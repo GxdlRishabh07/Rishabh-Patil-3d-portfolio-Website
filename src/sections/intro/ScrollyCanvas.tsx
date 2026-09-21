@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useScroll, useTransform } from "framer-motion";
+import { useMotionValue, useTransform } from "framer-motion";
+import { useLenis } from "lenis/react";
 import { Overlay } from "./Overlay";
 
 const FRAME_COUNT = 240;
@@ -16,21 +17,51 @@ export function ScrollyCanvas() {
   const [isLoaded, setIsLoaded] = useState(false);
   const lastDrawnIndexRef = useRef<number>(1);
   const rafIdRef = useRef<number | null>(null);
-
-  // 500vh container for smooth, cinematic scroll progression
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
 
-  // Map scroll progress (0 to 1) to frames 1 to 240
-  const frameIndex = useTransform(scrollYProgress, [0, 1], [1, FRAME_COUNT]);
+  // Lenis-driven scroll progress (0 → 1) — avoids the Framer Motion useScroll
+  // vs. Lenis virtual-scroll mismatch that breaks on Vercel production builds.
+  const scrollProgress = useMotionValue(0);
+  const frameIndex = useTransform(scrollProgress, [0, 1], [1, FRAME_COUNT]);
 
   const currentTargetIndexRef = useRef<number>(1);
   const scheduleRenderRef = useRef<((idx: number) => void) | null>(null);
 
-  // Priority-based image loader
+  // ── Lenis scroll listener ────────────────────────────────────────────────
+  // We subscribe to Lenis' own scroll events so the progress value stays in
+  // perfect sync with the smooth-scroll position rather than native scrollY.
+  const lenis = useLenis();
+
+  useEffect(() => {
+    if (!lenis) return;
+
+    const updateProgress = () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const totalScrollableHeight = container.offsetHeight - window.innerHeight;
+      if (totalScrollableHeight <= 0) return;
+
+      // How far has the top of the container scrolled past the viewport top?
+      // rect.top starts at 0 (element at top of viewport) and decreases as we scroll.
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / totalScrollableHeight));
+      scrollProgress.set(progress);
+    };
+
+    // Run on every Lenis tick (fires even during smooth scroll coasting)
+    lenis.on("scroll", updateProgress);
+
+    // Also update immediately on mount in case page is already scrolled
+    updateProgress();
+
+    return () => {
+      lenis.off("scroll", updateProgress);
+    };
+  }, [lenis, scrollProgress]);
+
+  // ── Priority-based image loader ──────────────────────────────────────────
   const loadSingleFrame = useCallback((index: number, onLoaded?: () => void) => {
     if (index < 1 || index > FRAME_COUNT) return;
     if (imagesRef.current[index]) return; // Already requested or loaded
@@ -41,20 +72,19 @@ export function ScrollyCanvas() {
     img.onload = () => {
       imagesRef.current[index] = img;
       onLoaded?.();
-      // If this newly loaded image is close to what we currently want to display, redraw immediately!
+      // If this newly loaded image is close to what we currently want, redraw immediately
       const currentTarget = Math.round(currentTargetIndexRef.current);
       if (Math.abs(currentTarget - index) <= 2) {
         scheduleRenderRef.current?.(currentTarget);
       }
     };
     img.onerror = () => {
-      // Mark as null on error to avoid repeated attempts
       imagesRef.current[index] = null;
     };
     imagesRef.current[index] = img;
   }, []);
 
-  // Multi-tier fast image preloading (loads all 240 frames in ~1.5s total)
+  // ── Multi-tier fast image preloading ─────────────────────────────────────
   useEffect(() => {
     imagesRef.current = new Array(FRAME_COUNT + 1).fill(null);
 
@@ -63,13 +93,13 @@ export function ScrollyCanvas() {
       setIsLoaded(true);
     });
 
-    // Tier 2: Immediately preload initial active window (frames 2 to 35)
+    // Tier 2: Preload initial active window (frames 2–35)
     const initialBatchSize = 35;
     for (let i = 2; i <= initialBatchSize; i++) {
       loadSingleFrame(i);
     }
 
-    // Tier 3: Rapidly stream the remaining frames in consecutive 20-frame bursts
+    // Tier 3: Stream remaining frames in 20-frame bursts
     let currentBurstIndex = initialBatchSize + 1;
     let timerId: ReturnType<typeof setTimeout> | null = null;
 
@@ -95,24 +125,21 @@ export function ScrollyCanvas() {
     };
   }, [loadSingleFrame]);
 
-  // Main canvas render loop
+  // ── Main canvas render loop ──────────────────────────────────────────────
   useEffect(() => {
     if (!isLoaded || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
-    // Use alpha: false for direct GPU blit optimization
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
     const drawFrame = (targetIndex: number) => {
       const roundedIndex = Math.max(1, Math.min(Math.round(targetIndex), FRAME_COUNT));
-      
-      // Look for the requested frame or find the closest loaded frame
+
       let imgToDraw = imagesRef.current[roundedIndex];
       let frameUsed = roundedIndex;
 
       if (!imgToDraw || !imgToDraw.complete || imgToDraw.naturalWidth === 0) {
-        // Look outward for nearest loaded frame
         let found = false;
         for (let offset = 1; offset <= 30; offset++) {
           const prev = roundedIndex - offset;
@@ -131,7 +158,6 @@ export function ScrollyCanvas() {
           }
         }
 
-        // If still not found, fallback to last successfully drawn frame
         if (!found) {
           const lastImg = imagesRef.current[lastDrawnIndexRef.current];
           if (lastImg && lastImg.complete && lastImg.naturalWidth > 0) {
@@ -147,7 +173,7 @@ export function ScrollyCanvas() {
 
       lastDrawnIndexRef.current = frameUsed;
 
-      // Accelerated object-fit: cover math
+      // object-fit: cover math
       const canvasWidth = canvas.width;
       const canvasHeight = canvas.height;
       const canvasRatio = canvasWidth / canvasHeight;
@@ -169,7 +195,6 @@ export function ScrollyCanvas() {
         drawHeight = canvasHeight;
         drawWidth = canvasHeight * imgRatio;
         offsetY = 0;
-        // Keep character nicely centered on narrower portrait viewports
         offsetX = (canvasWidth - drawWidth) / 2;
       }
 
@@ -190,11 +215,8 @@ export function ScrollyCanvas() {
     const handleResize = () => {
       if (!canvas) return;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const displayWidth = window.innerWidth;
-      const displayHeight = window.innerHeight;
-      
-      const newWidth = Math.round(displayWidth * dpr);
-      const newHeight = Math.round(displayHeight * dpr);
+      const newWidth = Math.round(window.innerWidth * dpr);
+      const newHeight = Math.round(window.innerHeight * dpr);
 
       if (canvas.width !== newWidth || canvas.height !== newHeight) {
         canvas.width = newWidth;
@@ -207,18 +229,19 @@ export function ScrollyCanvas() {
     window.addEventListener("resize", handleResize, { passive: true });
     handleResize();
 
-    // Subscribe to scroll frame index changes
+    // Subscribe to frame index changes
     const unsubscribe = frameIndex.on("change", (latest) => {
       currentTargetIndexRef.current = latest;
       const rounded = Math.round(latest);
-      // Proactively ensure upcoming frames are loading if scrolled ahead
+
+      // Proactively preload upcoming frames
       for (let ahead = 1; ahead <= 25; ahead++) {
         const nextIdx = rounded + ahead;
         if (nextIdx <= FRAME_COUNT && !imagesRef.current[nextIdx]) {
           loadSingleFrame(nextIdx);
         }
       }
-      // Also buffer behind in case user scrolls back up
+      // Buffer behind for upward scroll
       for (let behind = 1; behind <= 10; behind++) {
         const prevIdx = rounded - behind;
         if (prevIdx >= 1 && !imagesRef.current[prevIdx]) {
@@ -247,16 +270,15 @@ export function ScrollyCanvas() {
           className="w-full h-full object-cover relative z-0 pointer-events-none will-change-transform"
         />
 
-        {/* Ambient left vignette gradient to ensure perfect legibility for text zone without obscuring subject */}
+        {/* Left vignette gradient for text legibility */}
         <div className="absolute inset-y-0 left-0 w-full sm:w-2/3 md:w-1/2 bg-gradient-to-r from-black/85 sm:from-black/75 via-black/50 sm:via-black/35 to-transparent pointer-events-none z-10" />
 
-        {/* Ambient bottom gradient to blend seamlessly into next section */}
+        {/* Bottom gradient to blend into next section */}
         <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-black via-black/70 to-transparent pointer-events-none z-10" />
 
         {/* Storytelling text overlay synced to scroll progress */}
-        <Overlay containerScroll={scrollYProgress} />
+        <Overlay containerScroll={scrollProgress} />
       </div>
     </div>
   );
 }
-
