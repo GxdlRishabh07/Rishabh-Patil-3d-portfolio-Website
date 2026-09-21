@@ -47,7 +47,7 @@ export function SectionParallaxReveal({ children }: SectionParallaxRevealProps) 
   // ─────────────────────────────────────────────────────────────────────────
 
   return (
-    <div ref={containerRef} className="bg-black">
+    <div ref={containerRef} className="bg-black overflow-hidden w-full">
       {/* Outer: clip-path wipe + fade */}
       <motion.div
         style={{ clipPath, opacity, willChange: "clip-path, opacity" }}

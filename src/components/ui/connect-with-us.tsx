@@ -38,15 +38,15 @@ export const SocialConnect = ({ className }: { className?: string }) => {
   ];
 
   return (
-    <div className={cn("flex flex-col items-center justify-center py-8 w-full", className)}>
+    <div className={cn("flex flex-col items-center justify-center py-4 sm:py-8 w-full", className)}>
       <div className="relative w-full max-w-lg">
         <div 
-          className="rounded-2xl bg-gradient-to-br from-surface/40 to-bg/60 border border-stroke/50 shadow-xl backdrop-blur-2xl overflow-hidden p-5 transition-all duration-500 hover:scale-[1.01]"
+          className="rounded-2xl bg-gradient-to-br from-surface/40 to-bg/60 border border-stroke/50 shadow-xl backdrop-blur-2xl overflow-hidden p-4 sm:p-5 transition-all duration-500 hover:scale-[1.01]"
           style={{
             boxShadow: '0 0 30px rgba(139, 92, 246, 0.15)'
           }}
         >
-          <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
             {socials.map((social) => (
               <a 
                 key={social.name}

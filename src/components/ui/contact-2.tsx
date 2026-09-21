@@ -74,15 +74,15 @@ export const Contact2 = ({
   };
 
   return (
-    <section className="py-32 bg-transparent text-text-primary">
-      <div className="container mx-auto px-6 md:px-10 lg:px-16">
+    <section className="py-16 sm:py-24 md:py-32 bg-transparent text-text-primary">
+      <div className="container mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
         <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-10 lg:flex-row lg:gap-20">
-          <div className="flex max-w-sm flex-col justify-between gap-10">
+          <div className="flex max-w-sm flex-col justify-between gap-8 lg:gap-10">
             <div className="text-left">
               <div className="mb-2">
-                <h2 className="text-4xl md:text-6xl lg:text-7xl text-text-primary tracking-tight flex flex-nowrap items-center whitespace-nowrap">
+                <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-text-primary tracking-tight flex flex-wrap items-center">
                   {title.split(' ').map((word, i) => (
-                    <span key={i} className="flex">
+                    <span key={i} className="flex items-center">
                       <TextReveal
                         as="span"
                         text={word}
@@ -100,54 +100,54 @@ export const Contact2 = ({
                   ))}
                 </h2>
               </div>
-              <p className="text-muted">{description}</p>
+              <p className="text-muted text-sm sm:text-base leading-relaxed">{description}</p>
             </div>
-            <div className="mx-auto w-fit lg:mx-0">
-              <h3 className="mb-6 text-left text-2xl font-semibold">
+            <div className="w-full text-left lg:mx-0">
+              <h3 className="mb-4 sm:mb-6 text-left text-xl sm:text-2xl font-semibold">
                 Contact Details
               </h3>
-              <ul className="ml-4 list-disc space-y-2 text-muted">
+              <ul className="ml-4 list-disc space-y-2 text-sm sm:text-base text-muted">
                 <li>
                   <span className="font-bold text-text-primary">Phone: </span>
                   {phone}
                 </li>
                 <li>
                   <span className="font-bold text-text-primary">Email: </span>
-                  <a href={`mailto:${email}`} className="underline hover:text-accent transition-colors">
+                  <a href={`mailto:${email}`} className="underline hover:text-accent transition-colors break-all">
                     {email}
                   </a>
                 </li>
                 <li>
                   <span className="font-bold text-text-primary">Web: </span>
-                  <a href={web.url} target="_blank" className="underline hover:text-accent transition-colors">
+                  <a href={web.url} target="_blank" className="underline hover:text-accent transition-colors break-all">
                     {web.label}
                   </a>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="mx-auto flex w-full max-w-screen-md flex-col gap-6 rounded-3xl border border-stroke bg-surface/50 p-6 sm:p-10 backdrop-blur-sm">
+          <div className="mx-auto flex w-full max-w-screen-md flex-col gap-5 sm:gap-6 rounded-2xl sm:rounded-3xl border border-stroke bg-surface/50 p-5 sm:p-8 md:p-10 backdrop-blur-sm">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="firstname" className="text-text-primary">First Name <span className="text-red-500">*</span></Label>
-                <Input type="text" id="firstname" value={formData.firstname} onChange={handleChange} placeholder="First Name" className="bg-bg border-stroke focus:border-accent rounded-xl" />
+                <Label htmlFor="firstname" className="text-text-primary text-sm">First Name <span className="text-red-500">*</span></Label>
+                <Input type="text" id="firstname" value={formData.firstname} onChange={handleChange} placeholder="First Name" className="bg-bg border-stroke focus:border-accent rounded-xl text-base md:text-sm" />
               </div>
               <div className="grid w-full items-center gap-1.5">
-                <Label htmlFor="lastname" className="text-text-primary">Last Name</Label>
-                <Input type="text" id="lastname" value={formData.lastname} onChange={handleChange} placeholder="Last Name" className="bg-bg border-stroke focus:border-accent rounded-xl" />
+                <Label htmlFor="lastname" className="text-text-primary text-sm">Last Name</Label>
+                <Input type="text" id="lastname" value={formData.lastname} onChange={handleChange} placeholder="Last Name" className="bg-bg border-stroke focus:border-accent rounded-xl text-base md:text-sm" />
               </div>
             </div>
             <div className="grid w-full items-center gap-1.5">
-              <Label htmlFor="email" className="text-text-primary">Email <span className="text-red-500">*</span></Label>
-              <Input type="email" id="email" value={formData.email} onChange={handleChange} placeholder="Email" className="bg-bg border-stroke focus:border-accent rounded-xl" />
+              <Label htmlFor="email" className="text-text-primary text-sm">Email <span className="text-red-500">*</span></Label>
+              <Input type="email" id="email" value={formData.email} onChange={handleChange} placeholder="Email" className="bg-bg border-stroke focus:border-accent rounded-xl text-base md:text-sm" />
             </div>
             <div className="grid w-full items-center gap-1.5">
-              <Label htmlFor="subject" className="text-text-primary">Subject</Label>
-              <Input type="text" id="subject" value={formData.subject} onChange={handleChange} placeholder="Subject" className="bg-bg border-stroke focus:border-accent rounded-xl" />
+              <Label htmlFor="subject" className="text-text-primary text-sm">Subject</Label>
+              <Input type="text" id="subject" value={formData.subject} onChange={handleChange} placeholder="Subject" className="bg-bg border-stroke focus:border-accent rounded-xl text-base md:text-sm" />
             </div>
             <div className="grid w-full gap-1.5">
-              <Label htmlFor="message" className="text-text-primary">Message <span className="text-red-500">*</span></Label>
-              <Textarea placeholder="Type your message here." id="message" value={formData.message} onChange={handleChange} className="bg-bg border-stroke focus:border-accent min-h-[150px] rounded-xl" />
+              <Label htmlFor="message" className="text-text-primary text-sm">Message <span className="text-red-500">*</span></Label>
+              <Textarea placeholder="Type your message here." id="message" value={formData.message} onChange={handleChange} className="bg-bg border-stroke focus:border-accent min-h-[130px] sm:min-h-[150px] rounded-xl text-base md:text-sm" />
             </div>
             {submitMessage && (
               <div className={`text-sm p-3 rounded-xl ${submitMessage.includes('successfully') ? 'bg-green-500/20 text-green-200' : 'bg-red-500/20 text-red-200'}`}>
@@ -157,7 +157,7 @@ export const Contact2 = ({
             <Button 
               onClick={handleSubmit} 
               disabled={isSubmitting}
-              className="w-full bg-text-primary text-bg hover:bg-accent hover:text-bg font-bold py-6 rounded-xl transition-all active:scale-95 shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full bg-text-primary text-bg hover:bg-accent hover:text-bg font-bold py-5 sm:py-6 rounded-xl transition-all active:scale-95 shadow-lg disabled:opacity-70 disabled:cursor-not-allowed text-sm sm:text-base"
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </Button>

@@ -35,8 +35,8 @@ export const AuroraBackground: React.FC<AuroraBackgroundProps> = ({
 
   const stars = React.useMemo(() => {
     return Array.from({ length: starCount }).map(() => ({
-      x: `${Math.random() * 100}vw`,
-      y: `${Math.random() * 100}vh`,
+      x: `${Math.random() * 100}%`,
+      y: `${Math.random() * 100}%`,
       opacityMax: Math.random() * 0.8,
       duration: Math.random() * 3 + 2,
       delay: Math.random() * 5,

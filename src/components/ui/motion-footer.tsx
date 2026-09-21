@@ -77,7 +77,7 @@ export function CurtainFooter() {
      */
     <div
       ref={wrapperRef}
-      className="relative h-screen w-full bg-black"
+      className="relative min-h-[100dvh] w-full bg-black"
       style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
     >
       {/*
@@ -85,7 +85,7 @@ export function CurtainFooter() {
        * Only visible through the clip-path window above.
        * As the wrapper scrolls into view, more of the footer is revealed.
        */}
-      <footer className="fixed bottom-0 left-0 w-full h-screen overflow-hidden bg-black text-white flex flex-col justify-between">
+      <footer className="fixed bottom-0 left-0 w-full min-h-[100dvh] h-[100dvh] overflow-hidden bg-black text-white flex flex-col justify-between">
 
         {/* Background Video */}
         <div className="absolute inset-0 z-0">
@@ -108,7 +108,7 @@ export function CurtainFooter() {
         {/* Scrolling Marquee */}
         <div
           ref={marqueeRef}
-          className="relative z-10 w-full overflow-hidden flex whitespace-nowrap opacity-50 mix-blend-overlay pt-16"
+          className="relative z-10 w-full overflow-hidden flex whitespace-nowrap opacity-50 mix-blend-overlay pt-8 sm:pt-12 md:pt-16"
         >
           <div className="curtain-marquee-inner flex">
             {Array.from({ length: 2 }).map((_, i) => (
@@ -116,7 +116,7 @@ export function CurtainFooter() {
                 {Array.from({ length: 10 }).map((_, j) => (
                   <span
                     key={j}
-                    className="text-8xl md:text-9xl font-display italic text-transparent pr-8"
+                    className="text-6xl sm:text-7xl md:text-9xl font-display italic text-transparent pr-6 sm:pr-8"
                     style={{ WebkitTextStroke: "1px rgba(255,255,255,0.2)" }}
                   >
                     BUILDING THE FUTURE •{" "}
@@ -130,27 +130,27 @@ export function CurtainFooter() {
         {/* CTA Area */}
         <div
           ref={headingRef}
-          className="relative z-10 flex flex-col items-center justify-center text-center px-6 flex-1"
+          className="relative z-10 flex flex-col items-center justify-center text-center px-4 sm:px-6 flex-1 my-4 sm:my-0"
         >
-          <h2 className="text-4xl md:text-6xl text-white tracking-tight mb-8">
+          <h2 className="text-2xl sm:text-4xl md:text-6xl text-white tracking-tight mb-4 sm:mb-8">
             Let's create something <br />
             <span className="font-display italic text-accent">extraordinary.</span>
           </h2>
 
-          <SocialConnect className="mb-4" />
+          <SocialConnect className="mb-4 sm:mb-6" />
 
           <a
             href="mailto:patilrishabh50@gmail.com"
-            className="group relative rounded-full text-base px-8 py-4 bg-white text-black hover:bg-black hover:text-white border border-white/20 transition-all duration-300 hover:scale-105 inline-flex items-center"
+            className="group relative rounded-full text-xs sm:text-base px-5 py-3 sm:px-8 sm:py-4 bg-white text-black hover:bg-black hover:text-white border border-white/20 transition-all duration-300 hover:scale-105 inline-flex items-center max-w-[90vw]"
           >
-            <span className="relative z-10 font-medium">patilrishabh50@gmail.com</span>
+            <span className="relative z-10 font-medium truncate">patilrishabh50@gmail.com</span>
           </a>
         </div>
 
         {/* Bottom Bar */}
         <div
           ref={bottomBarRef}
-          className="relative z-10 max-w-[1200px] w-full mx-auto px-6 md:px-10 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-6 py-8 border-t border-white/10"
+          className="relative z-10 max-w-[1200px] w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-16 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-6 py-4 sm:py-6 md:py-8 pb-8 sm:pb-10 border-t border-white/10"
         >
           {/* Availability Indicator */}
           <div className="flex items-center gap-3">
@@ -158,11 +158,11 @@ export function CurtainFooter() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
             </div>
-            <span className="text-sm text-white/80">Available for projects</span>
+            <span className="text-xs sm:text-sm text-white/80">Available for projects</span>
           </div>
 
           {/* Copyright */}
-          <div className="flex items-center gap-4 text-xs text-white/50">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-[11px] sm:text-xs text-white/50 text-center">
             <span>© {new Date().getFullYear()} Rishabh Patil. Built with React &amp; Vite.</span>
             <Link to="/admin" className="hover:text-accent transition-colors">Admin Login</Link>
           </div>
@@ -170,11 +170,11 @@ export function CurtainFooter() {
           {/* Back to Top */}
           <button
             onClick={scrollToTop}
-            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 hover:bg-white/15 flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 group"
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/20 bg-white/5 hover:bg-white/15 flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 group"
             aria-label="Back to top"
           >
             <svg
-              className="w-4 h-4 transform group-hover:-translate-y-1 transition-transform duration-300"
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4 transform group-hover:-translate-y-1 transition-transform duration-300"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

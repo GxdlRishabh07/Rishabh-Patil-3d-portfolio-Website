@@ -71,11 +71,11 @@ const SKILLS = [
 export function Skills() {
   return (
     <section id="skills" className="relative bg-black w-full overflow-visible">
-      <SpotlightGradientBg overflowHidden={false} className="py-24 md:py-32">
-        <div className="max-w-[1200px] w-full mx-auto px-6 md:px-10 lg:px-16 mb-16">
-          <div className="flex items-center gap-6">
-            <div className="w-12 h-px bg-stroke" />
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-text-primary tracking-tight font-semibold flex flex-wrap items-center gap-x-1">
+      <SpotlightGradientBg overflowHidden={false} className="py-16 sm:py-24 md:py-32">
+        <div className="max-w-[1200px] w-full mx-auto px-5 sm:px-10 lg:px-16 mb-10 sm:mb-16">
+          <div className="flex items-center gap-3 sm:gap-6">
+            <div className="w-8 sm:w-12 h-px bg-stroke" />
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-text-primary tracking-tight font-semibold flex flex-wrap items-center gap-x-1">
               <TextReveal
                 as="span"
                 text="Skills"
@@ -105,16 +105,18 @@ export function Skills() {
         </div>
 
         {/* Scrolling Velocity Tracks */}
-        <div className="flex flex-col space-y-6 md:space-y-8 py-10 w-full relative z-10">
+        <div className="flex flex-col space-y-4 sm:space-y-6 md:space-y-8 py-6 sm:py-10 w-full relative z-10">
           {/* Row 1 - Left direction */}
           <ScrollVelocity velocity={1.5}>
             {SKILLS.map((skill) => (
               <div
                 key={`left-${skill.name}`}
-                className="flex items-center gap-4 bg-surface/50 border border-stroke rounded-2xl px-6 py-4 mx-3 sm:mx-4 hover:border-accent/40 hover:bg-stroke/40 transition-all duration-300 backdrop-blur-sm select-none"
+                className="flex items-center gap-3 sm:gap-4 bg-surface/50 border border-stroke rounded-xl sm:rounded-2xl px-4 py-2.5 sm:px-6 sm:py-4 mx-2 sm:mx-4 hover:border-accent/40 hover:bg-stroke/40 transition-all duration-300 backdrop-blur-sm select-none"
               >
-                {skill.logo}
-                <span className="text-lg sm:text-xl md:text-2xl font-semibold text-text-primary tracking-wide">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center shrink-0">
+                  {skill.logo}
+                </div>
+                <span className="text-sm sm:text-lg md:text-xl font-semibold text-text-primary tracking-wide">
                   {skill.name}
                 </span>
               </div>
@@ -126,10 +128,12 @@ export function Skills() {
             {[...SKILLS].reverse().map((skill) => (
               <div
                 key={`right-${skill.name}`}
-                className="flex items-center gap-4 bg-surface/50 border border-stroke rounded-2xl px-6 py-4 mx-3 sm:mx-4 hover:border-accent/40 hover:bg-stroke/40 transition-all duration-300 backdrop-blur-sm select-none"
+                className="flex items-center gap-3 sm:gap-4 bg-surface/50 border border-stroke rounded-xl sm:rounded-2xl px-4 py-2.5 sm:px-6 sm:py-4 mx-2 sm:mx-4 hover:border-accent/40 hover:bg-stroke/40 transition-all duration-300 backdrop-blur-sm select-none"
               >
-                {skill.logo}
-                <span className="text-lg sm:text-xl md:text-2xl font-semibold text-text-primary tracking-wide">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center shrink-0">
+                  {skill.logo}
+                </div>
+                <span className="text-sm sm:text-lg md:text-xl font-semibold text-text-primary tracking-wide">
                   {skill.name}
                 </span>
               </div>
@@ -138,7 +142,7 @@ export function Skills() {
         </div>
 
         {/* Bottom divider line matching portfolio aesthetic */}
-        <div className="max-w-[1200px] w-full mx-auto px-6 md:px-10 lg:px-16 mt-20">
+        <div className="max-w-[1200px] w-full mx-auto px-5 sm:px-10 lg:px-16 mt-12 sm:mt-20">
           <div className="w-full h-[1px] bg-stroke/30" />
         </div>
       </SpotlightGradientBg>
