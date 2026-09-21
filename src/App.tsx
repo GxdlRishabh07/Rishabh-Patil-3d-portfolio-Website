@@ -2,7 +2,6 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { LoadingScreen } from "./components/LoadingScreen";
 import { IntroSequence } from "./sections/IntroSequence";
 import { About } from "./sections/About";
-import { SectionParallaxReveal } from "./components/ui/about-parallax-reveal";
 import { EducationAndExperience } from "./sections/EducationAndExperience";
 import { Skills } from "./sections/Skills";
 import { SelectedWorks } from "./sections/SelectedWorks";
@@ -11,7 +10,12 @@ import { CurtainFooter } from "./components/ui/motion-footer";
 import { ReactLenis, useLenis } from "lenis/react";
 import { Navbar } from "./components/Navbar";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Routes, Route } from "react-router-dom";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const AdminPage = lazy(() => import("./pages/AdminPage").then(module => ({ default: module.AdminPage })));
 
@@ -55,14 +59,24 @@ function AppContent({ isLoading }: { isLoading: boolean }) {
     };
   }, [lenis]);
 
+  // When loading completes, immediately refresh Lenis and ScrollTrigger dimensions
+  useEffect(() => {
+    if (!isLoading && lenis) {
+      const timer = setTimeout(() => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+        window.dispatchEvent(new Event("resize"));
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading, lenis]);
+
   return (
     <>
       {!isLoading && <Navbar />}
-      <main className={`w-full bg-bg transition-opacity duration-1000 ${isLoading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
+      <main className={`w-full bg-bg transition-opacity duration-1000 ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <IntroSequence />
-        <SectionParallaxReveal>
-          <About />
-        </SectionParallaxReveal>
+        <About />
         <EducationAndExperience />
         <Skills />
         <SelectedWorks />

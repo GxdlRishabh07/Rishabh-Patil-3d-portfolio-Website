@@ -26,30 +26,22 @@ export function Overlay({ containerScroll }: OverlayProps) {
   // ── Stage 1: Hero Identity (0% - 15% scroll) ──────────────────────────────
   const opacity1Raw = useTransform(containerScroll, [0, 0.08, 0.15], [1, 0.8, 0]);
   const y1 = useTransform(containerScroll, [0, 0.15], ["0px", "-24px"]);
-  const display1 = useTransform(containerScroll, (v) => {
-    return v >= 0.16 ? "none" : "flex";
-  });
+  const visibility1 = useTransform(containerScroll, (v) => (v >= 0.16 ? "hidden" : "visible"));
 
   // ── Stage 2: Engineering & Aesthetics (22% - 44% scroll) ──────────────────
   const opacity2 = useTransform(containerScroll, [0.22, 0.26, 0.38, 0.44], [0, 1, 1, 0]);
   const y2 = useTransform(containerScroll, [0.22, 0.26, 0.44], ["24px", "0px", "-24px"]);
-  const display2 = useTransform(containerScroll, (v) => {
-    return v < 0.20 || v > 0.46 ? "none" : "flex";
-  });
+  const visibility2 = useTransform(containerScroll, (v) => (v < 0.20 || v > 0.46 ? "hidden" : "visible"));
 
   // ── Stage 3: Core Philosophy (50% - 70% scroll) ───────────────────────────
   const opacity3 = useTransform(containerScroll, [0.50, 0.54, 0.64, 0.70], [0, 1, 1, 0]);
   const y3 = useTransform(containerScroll, [0.50, 0.54, 0.70], ["24px", "0px", "-24px"]);
-  const display3 = useTransform(containerScroll, (v) => {
-    return v < 0.48 || v > 0.72 ? "none" : "flex";
-  });
+  const visibility3 = useTransform(containerScroll, (v) => (v < 0.48 || v > 0.72 ? "hidden" : "visible"));
 
   // ── Stage 4: Welcome & Transition (76% - 88% scroll) ──────────────────────
   const opacity4 = useTransform(containerScroll, [0.76, 0.80, 0.84, 0.88], [0, 1, 1, 0]);
   const y4 = useTransform(containerScroll, [0.76, 0.80, 0.88], ["24px", "0px", "-24px"]);
-  const display4 = useTransform(containerScroll, (v) => {
-    return v < 0.74 || v > 0.90 ? "none" : "flex";
-  });
+  const visibility4 = useTransform(containerScroll, (v) => (v < 0.74 || v > 0.90 ? "hidden" : "visible"));
 
   // ── Scroll Indicator (only visible at the top, fades out quickly) ─────────
   const scrollIndicatorOpacity = useTransform(containerScroll, [0, 0.04], [1, 0]);
@@ -69,7 +61,8 @@ export function Overlay({ containerScroll }: OverlayProps) {
             style={{ 
               opacity: hasPassedName ? 0 : opacity1Raw, 
               y: y1,
-              display: hasPassedName ? "none" : display1,
+              visibility: hasPassedName ? "hidden" : visibility1,
+              willChange: "opacity, transform",
               pointerEvents: "none"
             }}
             className="flex flex-col items-start text-left"
@@ -101,7 +94,8 @@ export function Overlay({ containerScroll }: OverlayProps) {
             style={{ 
               opacity: opacity2, 
               y: y2,
-              display: display2,
+              visibility: visibility2,
+              willChange: "opacity, transform",
               pointerEvents: "none"
             }}
             className="absolute inset-0 flex flex-col justify-center items-start text-left"
@@ -122,7 +116,8 @@ export function Overlay({ containerScroll }: OverlayProps) {
             style={{ 
               opacity: opacity3, 
               y: y3,
-              display: display3,
+              visibility: visibility3,
+              willChange: "opacity, transform",
               pointerEvents: "none"
             }}
             className="absolute inset-0 flex flex-col justify-center items-start text-left"
@@ -143,7 +138,8 @@ export function Overlay({ containerScroll }: OverlayProps) {
             style={{ 
               opacity: opacity4, 
               y: y4,
-              display: display4,
+              visibility: visibility4,
+              willChange: "opacity, transform",
               pointerEvents: "none"
             }}
             className="absolute inset-0 flex flex-col justify-center items-start text-left"

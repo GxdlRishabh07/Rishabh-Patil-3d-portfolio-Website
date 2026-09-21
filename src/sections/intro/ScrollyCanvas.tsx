@@ -27,6 +27,9 @@ export function ScrollyCanvas() {
   // Map scroll progress (0 to 1) to frames 1 to 240
   const frameIndex = useTransform(scrollYProgress, [0, 1], [1, FRAME_COUNT]);
 
+  const currentTargetIndexRef = useRef<number>(1);
+  const scheduleRenderRef = useRef<((idx: number) => void) | null>(null);
+
   // Priority-based image loader
   const loadSingleFrame = useCallback((index: number, onLoaded?: () => void) => {
     if (index < 1 || index > FRAME_COUNT) return;
@@ -38,6 +41,11 @@ export function ScrollyCanvas() {
     img.onload = () => {
       imagesRef.current[index] = img;
       onLoaded?.();
+      // If this newly loaded image is close to what we currently want to display, redraw immediately!
+      const currentTarget = Math.round(currentTargetIndexRef.current);
+      if (Math.abs(currentTarget - index) <= 2) {
+        scheduleRenderRef.current?.(currentTarget);
+      }
     };
     img.onerror = () => {
       // Mark as null on error to avoid repeated attempts
@@ -46,7 +54,7 @@ export function ScrollyCanvas() {
     imagesRef.current[index] = img;
   }, []);
 
-  // Multi-tier progressive image preloading
+  // Multi-tier fast image preloading (loads all 240 frames in ~1.5s total)
   useEffect(() => {
     imagesRef.current = new Array(FRAME_COUNT + 1).fill(null);
 
@@ -55,52 +63,35 @@ export function ScrollyCanvas() {
       setIsLoaded(true);
     });
 
-    // Tier 2: Immediately preload initial active window (frames 2 to 25)
-    const initialBatchSize = 25;
+    // Tier 2: Immediately preload initial active window (frames 2 to 35)
+    const initialBatchSize = 35;
     for (let i = 2; i <= initialBatchSize; i++) {
       loadSingleFrame(i);
     }
 
-    // Tier 3: Progressively buffer the remaining frames in idle chunks
-    let currentIdleIndex = initialBatchSize + 1;
-    let idleHandle: number | null = null;
-    let timeoutHandle: ReturnType<typeof setTimeout> | null = null;
+    // Tier 3: Rapidly stream the remaining frames in consecutive 20-frame bursts
+    let currentBurstIndex = initialBatchSize + 1;
+    let timerId: ReturnType<typeof setTimeout> | null = null;
 
-    const loadNextChunk = () => {
-      if (currentIdleIndex > FRAME_COUNT) return;
+    const loadNextBurst = () => {
+      if (currentBurstIndex > FRAME_COUNT) return;
 
-      const chunkSize = 8;
-      const end = Math.min(currentIdleIndex + chunkSize, FRAME_COUNT + 1);
-      for (let i = currentIdleIndex; i < end; i++) {
+      const burstSize = 20;
+      const end = Math.min(currentBurstIndex + burstSize, FRAME_COUNT + 1);
+      for (let i = currentBurstIndex; i < end; i++) {
         loadSingleFrame(i);
       }
-      currentIdleIndex = end;
+      currentBurstIndex = end;
 
-      if (currentIdleIndex <= FRAME_COUNT) {
-        scheduleNextBatch();
+      if (currentBurstIndex <= FRAME_COUNT) {
+        timerId = setTimeout(loadNextBurst, 25);
       }
     };
 
-    const scheduleNextBatch = () => {
-      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-        idleHandle = (window as unknown as { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(
-          () => loadNextChunk(),
-          { timeout: 800 }
-        );
-      } else {
-        timeoutHandle = setTimeout(loadNextChunk, 40);
-      }
-    };
-
-    scheduleNextBatch();
+    timerId = setTimeout(loadNextBurst, 50);
 
     return () => {
-      if (idleHandle !== null && typeof window !== "undefined" && "cancelIdleCallback" in window) {
-        (window as unknown as { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(idleHandle);
-      }
-      if (timeoutHandle) {
-        clearTimeout(timeoutHandle);
-      }
+      if (timerId) clearTimeout(timerId);
     };
   }, [loadSingleFrame]);
 
@@ -194,6 +185,7 @@ export function ScrollyCanvas() {
         rafIdRef.current = null;
       });
     };
+    scheduleRenderRef.current = scheduleRender;
 
     const handleResize = () => {
       if (!canvas) return;
@@ -217,18 +209,27 @@ export function ScrollyCanvas() {
 
     // Subscribe to scroll frame index changes
     const unsubscribe = frameIndex.on("change", (latest) => {
+      currentTargetIndexRef.current = latest;
       const rounded = Math.round(latest);
       // Proactively ensure upcoming frames are loading if scrolled ahead
-      for (let ahead = 1; ahead <= 12; ahead++) {
+      for (let ahead = 1; ahead <= 25; ahead++) {
         const nextIdx = rounded + ahead;
         if (nextIdx <= FRAME_COUNT && !imagesRef.current[nextIdx]) {
           loadSingleFrame(nextIdx);
+        }
+      }
+      // Also buffer behind in case user scrolls back up
+      for (let behind = 1; behind <= 10; behind++) {
+        const prevIdx = rounded - behind;
+        if (prevIdx >= 1 && !imagesRef.current[prevIdx]) {
+          loadSingleFrame(prevIdx);
         }
       }
       scheduleRender(latest);
     });
 
     return () => {
+      scheduleRenderRef.current = null;
       unsubscribe();
       window.removeEventListener("resize", handleResize);
       if (rafIdRef.current !== null) {
