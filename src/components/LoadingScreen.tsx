@@ -92,7 +92,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
         autoPlay
         playsInline
         muted={isMuted}
-        preload="auto"
+        preload="metadata"
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleEnded}
         className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"

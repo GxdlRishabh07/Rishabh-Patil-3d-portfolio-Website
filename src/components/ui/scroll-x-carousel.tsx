@@ -5,10 +5,11 @@ import { cn } from '@/lib/utils';
 import {
   motion,
   MotionValue,
-  useScroll,
+  useMotionValue,
   useTransform,
 } from 'framer-motion';
 import type { HTMLMotionProps } from 'framer-motion';
+import { useLenis } from 'lenis/react';
 
 interface ScrollXCarouselContextValue {
   scrollYProgress: MotionValue<number>;
@@ -25,15 +26,52 @@ function useScrollXCarousel() {
   return context;
 }
 
+/**
+ * ScrollXCarousel — Lenis-aware horizontal scroll carousel.
+ *
+ * Framer Motion's useScroll({ target }) reads *native* scrollY which is always
+ * 0 when Lenis smooth-scroll is active (Lenis intercepts wheel/touch and sets
+ * transform instead of actually scrolling the document). We therefore compute
+ * scrollYProgress manually from the Lenis "scroll" event, mirroring the exact
+ * same pattern used in ScrollyCanvas.tsx.
+ */
 export function ScrollXCarousel({
   children,
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const carouselRef = React.useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: carouselRef,
-  });
+
+  // Manual Lenis-driven progress (0 → 1)
+  const scrollYProgress = useMotionValue(0);
+  const lenis = useLenis();
+
+  React.useEffect(() => {
+    if (!lenis) return;
+
+    const updateProgress = () => {
+      const el = carouselRef.current;
+      if (!el) return;
+
+      const rect = el.getBoundingClientRect();
+      const totalScrollable = el.offsetHeight - window.innerHeight;
+      if (totalScrollable <= 0) return;
+
+      // rect.top is 0 when el's top is at viewport top; goes negative as we scroll
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+      scrollYProgress.set(progress);
+    };
+
+    lenis.on('scroll', updateProgress);
+    // Sync immediately in case page is already scrolled (e.g. browser back)
+    updateProgress();
+
+    return () => {
+      lenis.off('scroll', updateProgress);
+    };
+  }, [lenis, scrollYProgress]);
+
   return (
     <ScrollXCarouselContext.Provider value={{ scrollYProgress }}>
       <div

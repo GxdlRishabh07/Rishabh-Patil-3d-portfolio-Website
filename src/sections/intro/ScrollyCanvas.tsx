@@ -84,29 +84,33 @@ export function ScrollyCanvas() {
     imagesRef.current[index] = img;
   }, []);
 
-  // ── Multi-tier fast image preloading ─────────────────────────────────────
+  // ── Multi-tier image preloading (bandwidth-aware) ────────────────────────
+  // We intentionally delay the bulk burst so it doesn't compete with the
+  // loading video (12 MB) that streams during the intro screen. Frame 1 is
+  // already in the browser cache via <link rel="preload"> in index.html.
   useEffect(() => {
     imagesRef.current = new Array(FRAME_COUNT + 1).fill(null);
 
-    // Tier 1: Load frame 1 immediately for instant paint
+    // Tier 1: Frame 1 — instant paint (served from preload cache)
     loadSingleFrame(1, () => {
       setIsLoaded(true);
     });
 
-    // Tier 2: Preload initial active window (frames 2–35)
-    const initialBatchSize = 35;
+    // Tier 2: Small eager window (frames 2–15) so early scroll feels smooth
+    const initialBatchSize = 15;
     for (let i = 2; i <= initialBatchSize; i++) {
       loadSingleFrame(i);
     }
 
-    // Tier 3: Stream remaining frames in 20-frame bursts
+    // Tier 3: Stream the rest in 15-frame bursts, delayed 3 s to let the
+    // loading-screen video download settle first.
     let currentBurstIndex = initialBatchSize + 1;
     let timerId: ReturnType<typeof setTimeout> | null = null;
 
     const loadNextBurst = () => {
       if (currentBurstIndex > FRAME_COUNT) return;
 
-      const burstSize = 20;
+      const burstSize = 15;
       const end = Math.min(currentBurstIndex + burstSize, FRAME_COUNT + 1);
       for (let i = currentBurstIndex; i < end; i++) {
         loadSingleFrame(i);
@@ -114,11 +118,13 @@ export function ScrollyCanvas() {
       currentBurstIndex = end;
 
       if (currentBurstIndex <= FRAME_COUNT) {
-        timerId = setTimeout(loadNextBurst, 25);
+        // 60 ms between bursts — gentle on bandwidth without visible stutter
+        timerId = setTimeout(loadNextBurst, 60);
       }
     };
 
-    timerId = setTimeout(loadNextBurst, 50);
+    // 3 s initial delay: let loading video start streaming first
+    timerId = setTimeout(loadNextBurst, 3000);
 
     return () => {
       if (timerId) clearTimeout(timerId);
