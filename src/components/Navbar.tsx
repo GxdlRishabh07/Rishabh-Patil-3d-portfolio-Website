@@ -49,7 +49,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full",
         scrolled || isOpen
-          ? "bg-bg/90 backdrop-blur-md border-b border-stroke/20 py-3.5 sm:py-4"
+          ? "bg-[hsl(220,18%,4%)]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_12px_32px_-10px_rgba(0,0,0,0.6)] py-3 sm:py-3.5"
           : "bg-transparent py-4 sm:py-6 md:py-8"
       )}
     >
@@ -62,19 +62,20 @@ export function Navbar() {
             window.scrollTo({ top: 0, behavior: "smooth" });
             setIsOpen(false);
           }}
-          className="text-xs sm:text-sm md:text-base font-bold tracking-[0.25em] text-white hover:opacity-80 transition-all duration-300 uppercase"
+          className="group flex items-center gap-2.5 text-xs sm:text-sm md:text-[13px] font-bold tracking-[0.22em] text-white hover:opacity-90 transition-all uppercase"
         >
-          RISHABH PATIL
+          <span className="w-1.5 h-1.5 rounded-full bg-[#89AACC] group-hover:scale-125 transition-transform duration-300" />
+          <span>RISHABH PATIL</span>
         </a>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center gap-6">
-          <ul className="flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-2">
+          <ul className="flex items-center gap-1">
             {NAV_LINKS.map((link) => (
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className="text-[13px] font-semibold tracking-[0.2em] text-white/70 hover:text-white transition-colors duration-300 uppercase"
+                  className="px-3.5 py-1.5 rounded-full text-[12px] font-semibold tracking-[0.18em] text-white/70 hover:text-white transition-all duration-200 hover:bg-white/[0.06] active:scale-95 uppercase"
                 >
                   {link.label}
                 </a>
@@ -83,16 +84,17 @@ export function Navbar() {
           </ul>
 
           {/* Divider */}
-          <span className="h-3 w-[1px] block bg-white/20 transition-colors duration-300" />
+          <span className="h-3 w-[1px] mx-2 block bg-white/15" />
 
           {/* Resume link */}
           <a
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-[13px] font-semibold tracking-[0.2em] text-white/70 hover:text-white transition-colors duration-300 uppercase"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 hover:border-white/20 text-[12px] font-semibold tracking-[0.18em] text-white transition-all duration-200 active:scale-95 shadow-sm uppercase"
           >
-            RESUME <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+            <span>RESUME</span>
+            <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />
           </a>
         </nav>
 

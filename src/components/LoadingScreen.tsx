@@ -119,7 +119,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6 }}
         onClick={handleFinish}
-        className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-10 z-30 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-black/40 hover:bg-black/75 border border-white/15 hover:border-white/35 text-[11px] sm:text-xs uppercase tracking-[0.2em] text-white/75 hover:text-white transition-all backdrop-blur-md flex items-center gap-1.5 group cursor-pointer shadow-lg active:scale-95"
+        className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-10 z-30 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-black/50 hover:bg-black/80 border border-white/15 border-t-white/30 hover:border-white/40 text-[11px] sm:text-xs uppercase tracking-[0.2em] text-white/80 hover:text-white transition-all backdrop-blur-md flex items-center gap-1.5 group cursor-pointer shadow-lg active:scale-95"
         aria-label="Skip intro video"
       >
         <span>Skip</span>
@@ -132,7 +132,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5, duration: 0.6 }}
         onClick={toggleMute}
-        className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-10 z-30 p-2.5 sm:p-3 rounded-full bg-black/40 hover:bg-black/75 border border-white/15 hover:border-white/35 text-white/75 hover:text-white transition-all backdrop-blur-md cursor-pointer shadow-lg active:scale-95"
+        className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-10 z-30 p-2.5 sm:p-3 rounded-full bg-black/50 hover:bg-black/80 border border-white/15 border-t-white/30 hover:border-white/40 text-white/80 hover:text-white transition-all backdrop-blur-md cursor-pointer shadow-lg active:scale-95"
         aria-label={isMuted ? "Unmute video sound" : "Mute video sound"}
         title={isMuted ? "Sound is muted (click to unmute)" : "Sound is playing"}
       >
@@ -147,7 +147,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: -15, filter: "blur(6px)" }}
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute bottom-12 sm:bottom-20 md:bottom-24 left-1/2 -translate-x-1/2 text-center pointer-events-none z-20 px-5 sm:px-10 py-2.5 sm:py-4 rounded-2xl bg-black/60 backdrop-blur-xl border border-white/15 shadow-[0_15px_50px_rgba(0,0,0,0.85)] max-w-[94vw]"
+            className="absolute bottom-12 sm:bottom-20 md:bottom-24 left-1/2 -translate-x-1/2 text-center pointer-events-none z-20 px-5 sm:px-10 py-2.5 sm:py-4 rounded-2xl bg-black/70 backdrop-blur-xl border border-white/15 border-t-white/30 shadow-[0_20px_60px_rgba(0,0,0,0.9)] max-w-[94vw]"
           >
             <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-display italic text-white tracking-wide drop-shadow-[0_2px_25px_rgba(255,255,255,0.45)] whitespace-nowrap">
               Welcome to my portfolio

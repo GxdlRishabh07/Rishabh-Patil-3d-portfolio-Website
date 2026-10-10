@@ -24,10 +24,10 @@ export function ContactSection() {
       </AuroraBackground>
 
       {/* Top gradient fade to blend with previous section */}
-      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black to-transparent pointer-events-none z-20" />
+      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-bg to-transparent pointer-events-none z-20" />
 
       {/* Bottom gradient fade to blend with footer */}
-      <div className="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none z-20" />
+      <div className="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-bg via-bg/60 to-transparent pointer-events-none z-20" />
     </section>
   );
 }

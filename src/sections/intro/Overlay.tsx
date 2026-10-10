@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion, MotionValue, useTransform } from "framer-motion";
-import { ArrowDown } from "lucide-react";
 
 interface OverlayProps {
   containerScroll: MotionValue<number>;
@@ -68,23 +67,23 @@ export function Overlay({ containerScroll }: OverlayProps) {
             className="flex flex-col items-start text-left"
           >
             {/* Status Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md mb-3 sm:mb-4 shadow-lg">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.06] border border-white/15 backdrop-blur-xl mb-4 shadow-xl ring-1 ring-white/5">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
-              <span className="text-[10px] sm:text-[11px] font-mono tracking-wider sm:tracking-widest text-white/90 uppercase">
+              <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.2em] text-white/90 uppercase font-medium">
                 Full-Stack Developer • Pune, India
               </span>
             </div>
 
             {/* Name */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.05] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] mb-3 sm:mb-4">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-[-0.03em] text-white leading-[0.98] drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)] mb-4">
               RISHABH <span className="font-display italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#89AACC] to-[#4E85BF]">PATIL</span>
             </h1>
 
             {/* Tagline */}
-            <p className="text-xs sm:text-base md:text-lg text-white/80 max-w-md font-light tracking-wide leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+            <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-md font-light tracking-wide leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] text-pretty">
               Architecting high-performance web systems and immersive digital experiences.
             </p>
           </motion.div>
@@ -100,13 +99,14 @@ export function Overlay({ containerScroll }: OverlayProps) {
             }}
             className="absolute inset-0 flex flex-col justify-center items-start text-left"
           >
-            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#89AACC] mb-2 sm:mb-2.5 drop-shadow-md">
-              01 / Focus
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#89AACC] mb-2 sm:mb-3 flex items-center gap-2 drop-shadow-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#89AACC] inline-block" />
+              Engineering &amp; Craft
             </span>
-            <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15] mb-2 sm:mb-3 drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-white leading-[1.08] mb-3 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] text-balance">
               Crafting Scalable, Fluid Digital Products.
             </h2>
-            <p className="text-xs sm:text-base md:text-lg text-white/75 font-light leading-relaxed max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+            <p className="text-sm sm:text-base md:text-lg text-white/75 font-light leading-relaxed max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] text-pretty">
               Delivering clean backend architectures paired with responsive, 60fps interactive frontends.
             </p>
           </motion.div>
@@ -122,13 +122,14 @@ export function Overlay({ containerScroll }: OverlayProps) {
             }}
             className="absolute inset-0 flex flex-col justify-center items-start text-left"
           >
-            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#89AACC] mb-2 sm:mb-2.5 drop-shadow-md">
-              02 / Philosophy
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#89AACC] mb-2 sm:mb-3 flex items-center gap-2 drop-shadow-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#89AACC] inline-block" />
+              Architecture &amp; Depth
             </span>
-            <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15] mb-2 sm:mb-3 drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
-              Bridging Deep Logic & Intuitive Design.
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-white leading-[1.08] mb-3 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] text-balance">
+              Bridging Deep Logic &amp; Intuitive Design.
             </h2>
-            <p className="text-xs sm:text-base md:text-lg text-white/75 font-light leading-relaxed max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+            <p className="text-sm sm:text-base md:text-lg text-white/75 font-light leading-relaxed max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] text-pretty">
               From Java, Spring Boot, and PostgreSQL distributed systems to fine-tuned GSAP and React motion layers.
             </p>
           </motion.div>
@@ -144,13 +145,14 @@ export function Overlay({ containerScroll }: OverlayProps) {
             }}
             className="absolute inset-0 flex flex-col justify-center items-start text-left"
           >
-            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#89AACC] mb-2 sm:mb-2.5 drop-shadow-md">
-              03 / Welcome
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#89AACC] mb-2 sm:mb-3 flex items-center gap-2 drop-shadow-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#89AACC] inline-block" />
+              Perspective
             </span>
-            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.1] mb-2 sm:mb-3 drop-shadow-[0_4px_20px_rgba(0,0,0,0.95)]">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-[-0.025em] text-white leading-[1.08] mb-3 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] text-balance">
               Welcome to my <span className="font-display italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#89AACC] to-[#4E85BF]">World</span>.
             </h2>
-            <p className="text-xs sm:text-base md:text-lg text-white/80 font-light leading-relaxed max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+            <p className="text-sm sm:text-base md:text-lg text-white/80 font-light leading-relaxed max-w-md drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] text-pretty">
               Explore my journey, technical background, and selected works below.
             </p>
           </motion.div>
@@ -158,25 +160,24 @@ export function Overlay({ containerScroll }: OverlayProps) {
         </div>
       </div>
 
-      {/* ── Scroll Prompt (Top Only — cleanly anchored at the bottom with zero collisions) ── */}
+      {/* ── Restrained Scroll Indicator (fades completely on initial interaction) ── */}
       <motion.div
         style={{ 
           opacity: scrollIndicatorOpacity, 
           y: scrollIndicatorY,
           pointerEvents: "none"
         }}
-        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 sm:gap-2 pointer-events-none"
+        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
       >
-        <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.3em] text-white/50">
+        <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-white/40">
           Scroll
         </span>
-        <div className="w-4 h-7 sm:w-5 sm:h-8 rounded-full border border-white/20 flex items-start justify-center p-1 backdrop-blur-xs bg-black/20">
+        <div className="w-4 h-7 rounded-full border border-white/20 flex items-start justify-center p-1 backdrop-blur-md bg-black/40 shadow-inner">
           <motion.div
-            animate={{ y: [0, 7, 0] }}
-            transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-          >
-            <ArrowDown className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white/70" />
-          </motion.div>
+            animate={{ y: [0, 8, 0], opacity: [0.4, 1, 0.4] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className="w-1 h-1.5 rounded-full bg-white/80"
+          />
         </div>
       </motion.div>
     </div>

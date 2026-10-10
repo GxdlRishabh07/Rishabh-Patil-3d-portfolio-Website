@@ -144,7 +144,7 @@ export function EducationAndExperience() {
               {ITEMS.map((item) => (
                 <CardHoverReveal
                   key={item.id}
-                  className="min-w-[85vw] sm:min-w-[70vw] md:min-w-[42vw] xl:min-w-[32vw] aspect-[4/5] rounded-3xl border border-stroke bg-surface/50 overflow-hidden relative group"
+                  className="min-w-[85vw] sm:min-w-[70vw] md:min-w-[42vw] xl:min-w-[32vw] aspect-[4/5] rounded-3xl border border-white/[0.08] border-t-white/[0.2] bg-[hsl(220,18%,6%)]/80 overflow-hidden relative group shadow-[0_25px_50px_-15px_rgba(0,0,0,0.8)] backdrop-blur-xl"
                 >
                   <CardHoverRevealMain>
                     <img
@@ -155,39 +155,39 @@ export function EducationAndExperience() {
                   </CardHoverRevealMain>
 
                   {/* Initial visible overlay */}
-                  <div className="absolute inset-x-6 bottom-6 p-6 rounded-2xl bg-black/50 border border-white/5 backdrop-blur-md transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-6">
+                  <div className="absolute inset-x-6 bottom-6 p-6 rounded-2xl bg-black/60 border border-white/10 border-t-white/20 backdrop-blur-xl transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-6 shadow-xl">
                     <div className="flex items-center gap-2 mb-3">
                       <Badge className={cn(
-                        "text-xs px-2.5 py-0.5 rounded-full font-medium border-0",
+                        "text-xs px-2.5 py-0.5 rounded-full font-medium border border-white/10",
                         item.type === "Education" ? "bg-indigo-500/20 text-indigo-300" : "bg-emerald-500/20 text-emerald-300"
                       )}>
                         {item.type}
                       </Badge>
                       {item.current && (
-                        <Badge className="bg-accent/20 text-accent border-0 text-xs px-2.5 py-0.5 rounded-full font-medium">
+                        <Badge className="bg-emerald-500/15 text-emerald-300 border border-emerald-500/20 text-xs px-2.5 py-0.5 rounded-full font-medium">
                           Active
                         </Badge>
                       )}
                     </div>
-                    <h3 className="text-xl md:text-2xl font-semibold text-white tracking-tight leading-snug mb-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-white tracking-[-0.02em] leading-snug mb-1">
                       {item.title}
                     </h3>
-                    <p className="text-white/80 font-medium text-sm">
+                    <p className="text-white/80 font-medium text-sm font-display italic">
                       {item.organization}
                     </p>
                   </div>
 
                   {/* Hover details content */}
-                  <CardHoverRevealContent className="inset-0 absolute p-6 md:p-8 bg-black/80 backdrop-blur-xl border border-stroke rounded-3xl flex flex-col justify-between transition-all duration-500 ease-in-out">
+                  <CardHoverRevealContent className="inset-0 absolute p-6 md:p-8 bg-[hsl(220,20%,4%)]/92 backdrop-blur-2xl border border-white/10 border-t-white/25 rounded-3xl flex flex-col justify-between transition-all duration-500 ease-in-out shadow-2xl">
                     <div className="space-y-4 md:space-y-6">
                       <div className="flex items-center justify-between">
                         <Badge className={cn(
-                          "text-xs px-3 py-1 rounded-full font-semibold border-0",
+                          "text-xs px-3 py-1 rounded-full font-semibold border border-white/10",
                           item.type === "Education" ? "bg-indigo-500/20 text-indigo-300" : "bg-emerald-500/20 text-emerald-300"
                         )}>
                           {item.type}
                         </Badge>
-                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-stroke">
+                        <div className="w-10 h-10 rounded-xl bg-white/[0.05] flex items-center justify-center border border-white/10 shadow-inner">
                           {item.type === "Education" ? (
                             <GraduationCap className="w-5 h-5 text-indigo-400" />
                           ) : (
@@ -197,7 +197,7 @@ export function EducationAndExperience() {
                       </div>
 
                       <div className="space-y-2">
-                        <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">
+                        <h3 className="text-xl md:text-2xl font-bold text-white tracking-[-0.02em]">
                           {item.title}
                         </h3>
                         <p className="text-base md:text-lg text-white/90 font-medium font-display italic">
@@ -216,14 +216,14 @@ export function EducationAndExperience() {
                         </span>
                       </div>
 
-                      <p className="text-xs md:text-sm text-white/80 leading-relaxed font-light">
+                      <p className="text-xs md:text-sm text-white/80 leading-relaxed font-light text-pretty">
                         {item.description}
                       </p>
                     </div>
 
                     {item.current && (
-                      <div className="inline-flex items-center gap-2 text-xs font-semibold text-accent bg-accent/10 px-4 py-1.5 rounded-full w-fit border border-accent/20">
-                        <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                      <div className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-300 bg-emerald-500/15 px-4 py-1.5 rounded-full w-fit border border-emerald-500/25">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                         Currently Active
                       </div>
                     )}
@@ -236,17 +236,17 @@ export function EducationAndExperience() {
             <div className="absolute inset-x-0 bottom-[30vh] z-30 pointer-events-none flex justify-between px-4 md:px-8">
               <button
                 onClick={() => handleScroll("left")}
-                className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-surface/80 hover:bg-bg border border-stroke text-text-primary flex items-center justify-center transition-all cursor-pointer shadow-2xl group pointer-events-auto"
+                className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/60 hover:bg-black/90 border border-white/15 border-t-white/30 text-white flex items-center justify-center transition-all cursor-pointer shadow-2xl backdrop-blur-xl group pointer-events-auto active:scale-95"
                 aria-label="Previous item"
               >
-                <ChevronLeft className="w-7 h-7 md:w-8 md:h-8 transition-transform group-hover:-translate-x-0.5" />
+                <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:-translate-x-0.5" />
               </button>
               <button
                 onClick={() => handleScroll("right")}
-                className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-surface/80 hover:bg-bg border border-stroke text-text-primary flex items-center justify-center transition-all cursor-pointer shadow-2xl group pointer-events-auto"
+                className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/60 hover:bg-black/90 border border-white/15 border-t-white/30 text-white flex items-center justify-center transition-all cursor-pointer shadow-2xl backdrop-blur-xl group pointer-events-auto active:scale-95"
                 aria-label="Next item"
               >
-                <ChevronRight className="w-7 h-7 md:w-8 md:h-8 transition-transform group-hover:translate-x-0.5" />
+                <ChevronRight className="w-6 h-6 md:w-7 md:h-7 transition-transform group-hover:translate-x-0.5" />
               </button>
             </div>
 
@@ -298,7 +298,7 @@ export function EducationAndExperience() {
             {ITEMS.map((item) => (
               <div
                 key={item.id}
-                className="w-full min-h-[380px] sm:min-h-[440px] rounded-2xl sm:rounded-3xl border border-stroke bg-surface/50 overflow-hidden relative shadow-lg flex flex-col justify-between"
+                className="w-full min-h-[380px] sm:min-h-[440px] rounded-2xl sm:rounded-3xl border border-white/[0.08] border-t-white/[0.2] bg-[hsl(220,18%,6%)]/80 overflow-hidden relative shadow-2xl flex flex-col justify-between backdrop-blur-xl"
               >
                 <img
                   src={item.imageUrl}
@@ -307,18 +307,18 @@ export function EducationAndExperience() {
                 />
                 
                 {/* Gradient scrim for guaranteed readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent pointer-events-none" />
                 
                 <div className="relative h-full p-5 sm:p-8 flex flex-col justify-between z-10">
                   <div className="space-y-3 sm:space-y-4">
                     <div className="flex items-center justify-between">
                       <Badge className={cn(
-                        "text-[11px] sm:text-xs px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full font-semibold border-0",
+                        "text-[11px] sm:text-xs px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full font-semibold border border-white/10",
                         item.type === "Education" ? "bg-indigo-500/20 text-indigo-300" : "bg-emerald-500/20 text-emerald-300"
                       )}>
                         {item.type}
                       </Badge>
-                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/5 flex items-center justify-center border border-stroke backdrop-blur-md">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white/[0.05] flex items-center justify-center border border-white/10 backdrop-blur-md shadow-inner">
                         {item.type === "Education" ? (
                           <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-400" />
                         ) : (
@@ -328,7 +328,7 @@ export function EducationAndExperience() {
                     </div>
 
                     <div className="space-y-1 sm:space-y-2">
-                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-[-0.02em] leading-snug">
                         {item.title}
                       </h3>
                       <p className="text-base sm:text-lg text-white/90 font-medium font-display italic">
@@ -347,14 +347,14 @@ export function EducationAndExperience() {
                       </span>
                     </div>
 
-                    <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-light line-clamp-4 sm:line-clamp-5 pt-1">
+                    <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-light line-clamp-4 sm:line-clamp-5 pt-1 text-pretty">
                       {item.description}
                     </p>
                   </div>
 
                   {item.current && (
-                    <div className="inline-flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-accent bg-accent/10 px-3.5 py-1.5 rounded-full w-fit border border-accent/20 backdrop-blur-md mt-4">
-                      <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                    <div className="inline-flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-emerald-300 bg-emerald-500/15 px-3.5 py-1.5 rounded-full w-fit border border-emerald-500/25 backdrop-blur-md mt-4">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                       Currently Active
                     </div>
                   )}

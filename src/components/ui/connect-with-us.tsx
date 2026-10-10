@@ -41,10 +41,7 @@ export const SocialConnect = ({ className }: { className?: string }) => {
     <div className={cn("flex flex-col items-center justify-center py-4 sm:py-8 w-full", className)}>
       <div className="relative w-full max-w-lg">
         <div 
-          className="rounded-2xl bg-gradient-to-br from-surface/40 to-bg/60 border border-stroke/50 shadow-xl backdrop-blur-2xl overflow-hidden p-4 sm:p-5 transition-all duration-500 hover:scale-[1.01]"
-          style={{
-            boxShadow: '0 0 30px rgba(139, 92, 246, 0.15)'
-          }}
+          className="rounded-2xl bg-surface/60 border border-white/[0.08] border-t-white/[0.2] shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl overflow-hidden p-4 sm:p-5 transition-all duration-500 hover:border-white/20"
         >
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
             {socials.map((social) => (

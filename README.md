@@ -119,7 +119,7 @@ pnpm preview
 | Project | Tech | Link |
 |---------|------|------|
 | **InternSphere** | Java, Spring Boot, React, PostgreSQL | [GitHub](https://github.com/GxdlRishabh07/InternSphere-) |
-| **TideWave Andaman** | React, Node.js, Express, MongoDB | [Live Site](https://tidewave-andaman.vercel.app/) |
+| **TideWave Andaman** | React, Node.js, Express, MongoDB | [Live Site](https://tidewaveandaman.com/) |
 
 ---
 

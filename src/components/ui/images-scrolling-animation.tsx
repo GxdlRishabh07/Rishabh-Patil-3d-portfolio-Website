@@ -37,6 +37,7 @@ const defaultProjects: ProjectItem[] = [
 const StickyCard_001 = ({
   i,
   title,
+  category,
   src,
   link,
   linkLabel,
@@ -46,6 +47,7 @@ const StickyCard_001 = ({
 }: {
   i: number
   title: string
+  category?: string
   src: string
   link?: string
   linkLabel?: string
@@ -62,14 +64,14 @@ const StickyCard_001 = ({
       <motion.div
         style={{
           scale,
-          top: `calc(2vh + ${i * 18 + 100}px)`,
+          top: `calc(2vh + ${i * 20 + 90}px)`,
         }}
-        className="rounded-2xl sm:rounded-3xl lg:rounded-4xl relative flex origin-top flex-col overflow-hidden border border-white/10 shadow-2xl
-                   h-[220px] w-[90vw] max-w-[340px]
-                   sm:h-[320px] sm:w-[480px] sm:max-w-none
-                   md:h-[420px] md:w-[680px] 
-                   lg:h-[520px] lg:w-[850px]
-                   group"
+        className="rounded-2xl sm:rounded-3xl lg:rounded-4xl relative flex origin-top flex-col overflow-hidden border border-white/10 border-t-white/25 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.85)]
+                   h-[230px] w-[90vw] max-w-[360px]
+                   sm:h-[330px] sm:w-[500px] sm:max-w-none
+                   md:h-[430px] md:w-[720px] 
+                   lg:h-[530px] lg:w-[880px]
+                   group bg-surface/40 backdrop-blur-md"
       >
         {link ? (
           <a
@@ -78,15 +80,44 @@ const StickyCard_001 = ({
             rel="noopener noreferrer"
             className="w-full h-full block relative cursor-pointer overflow-hidden"
           >
-            <img src={src || "/placeholder.svg"} alt={title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-black/25 md:bg-black/40 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex items-end md:items-center justify-center pb-4 sm:pb-6 md:pb-0">
-              <span className="text-white text-xs sm:text-sm font-semibold tracking-wider bg-black/75 md:bg-white/15 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-white/20 backdrop-blur-md md:backdrop-blur-sm transition-all hover:bg-white/25 shadow-xl active:scale-95">
-                {linkLabel || "View Project GitHub"}
+            <img src={src || "/placeholder.svg"} alt={title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            
+            {/* Top info badge scrim */}
+            <div className="absolute top-0 inset-x-0 p-4 sm:p-6 bg-gradient-to-b from-black/85 via-black/40 to-transparent z-10 flex items-center justify-between pointer-events-none">
+              <div>
+                {category && (
+                  <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-[#89AACC] mb-1 block font-medium">
+                    {category}
+                  </span>
+                )}
+                <h3 className="text-base sm:text-xl md:text-2xl font-bold text-white tracking-[-0.02em]">
+                  {title}
+                </h3>
+              </div>
+            </div>
+
+            {/* Bottom action link */}
+            <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 flex items-end justify-end pointer-events-none">
+              <span className="inline-flex items-center gap-1.5 text-white text-xs sm:text-sm font-semibold tracking-wide bg-white/10 group-hover:bg-white/20 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-white/20 border-t-white/30 backdrop-blur-md transition-all shadow-xl active:scale-95">
+                <span>{linkLabel || "View Project"}</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </span>
             </div>
           </a>
         ) : (
-          <img src={src || "/placeholder.svg"} alt={title} className="h-full w-full object-cover" />
+          <div className="w-full h-full relative">
+            <img src={src || "/placeholder.svg"} alt={title} className="h-full w-full object-cover" />
+            <div className="absolute top-0 inset-x-0 p-4 sm:p-6 bg-gradient-to-b from-black/85 via-black/40 to-transparent z-10">
+              {category && (
+                <span className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-[#89AACC] mb-1 block font-medium">
+                  {category}
+                </span>
+              )}
+              <h3 className="text-base sm:text-xl md:text-2xl font-bold text-white tracking-[-0.02em]">
+                {title}
+              </h3>
+            </div>
+          </div>
         )}
       </motion.div>
     </div>
@@ -121,6 +152,7 @@ const ImagesScrollingAnimation = ({ projectsList }: ImagesScrollingAnimationProp
             key={`p_${i}`}
             i={i}
             title={project.title}
+            category={project.category}
             src={project.src}
             link={project.link}
             linkLabel={project.linkLabel}

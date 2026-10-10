@@ -276,11 +276,11 @@ export function ScrollyCanvas() {
           className="w-full h-full object-cover relative z-0 pointer-events-none will-change-transform"
         />
 
-        {/* Left vignette gradient for text legibility */}
-        <div className="absolute inset-y-0 left-0 w-full sm:w-2/3 md:w-1/2 bg-gradient-to-r from-black/85 sm:from-black/75 via-black/50 sm:via-black/35 to-transparent pointer-events-none z-10" />
+        {/* Left directional scrim: keeps text legible while preserving subject clarity */}
+        <div className="absolute inset-y-0 left-0 w-full sm:w-3/4 md:w-3/5 bg-gradient-to-r from-black/90 via-black/45 to-transparent pointer-events-none z-10" />
 
-        {/* Bottom gradient to blend into next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-44 bg-gradient-to-t from-black via-black/70 to-transparent pointer-events-none z-10" />
+        {/* Bottom gradient to blend cleanly into the obsidian canvas of next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[hsl(220,18%,3.5%)] via-black/80 to-transparent pointer-events-none z-10" />
 
         {/* Storytelling text overlay synced to scroll progress */}
         <Overlay containerScroll={scrollProgress} />

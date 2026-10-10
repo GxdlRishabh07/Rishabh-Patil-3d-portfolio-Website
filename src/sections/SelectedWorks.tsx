@@ -22,7 +22,7 @@ const WORKS = [
     colSpan: "md:col-span-6",
     tech: ["React", "Node.js", "Express", "MongoDB"],
     github: "https://github.com/GxdlRishabh07/tidewave-andaman.git",
-    live: "https://tidewave-andaman.vercel.app/"
+    live: "https://tidewaveandaman.com/"
   },
 ];
 
@@ -30,10 +30,10 @@ export function SelectedWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="work" ref={sectionRef} className="relative bg-black w-full overflow-visible">
-      {/* Top and Bottom black fade overlays to blend seamlessly */}
-      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black via-black/80 to-transparent pointer-events-none z-10" />
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none z-10" />
+    <section id="work" ref={sectionRef} className="relative bg-bg w-full overflow-visible">
+      {/* Top and Bottom fade overlays to blend seamlessly into adjacent sections */}
+      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-bg via-bg/80 to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-bg via-bg/80 to-transparent pointer-events-none z-10" />
 
       <div className="pt-10 pb-8 sm:pt-14 sm:pb-12 md:pt-16 md:pb-14 relative z-20">
         <div className="max-w-[1200px] mx-auto px-5 sm:px-10 lg:px-16">
@@ -82,12 +82,17 @@ export function SelectedWorks() {
               </p>
             </div>
 
-            <button className="inline-flex group relative rounded-full items-center justify-center gap-2 text-xs sm:text-sm px-5 py-2.5 sm:px-6 sm:py-3 bg-surface text-text-primary transition-all duration-300 w-full sm:w-fit mt-2 md:mt-0 active:scale-95 cursor-pointer">
-              <div className="absolute -inset-[1px] rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative z-10 flex w-full justify-center items-center gap-2 bg-surface px-5 py-2.5 sm:px-6 sm:py-3 rounded-full -m-[12px] group-hover:bg-bg transition-colors">
-                View all work <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <a
+              href="https://github.com/GxdlRishabh07"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View all projects on GitHub"
+              className="inline-flex group relative rounded-full items-center justify-center gap-2 text-xs sm:text-sm px-5 py-2.5 sm:px-6 sm:py-3 bg-surface/80 border border-white/10 border-t-white/25 backdrop-blur-md text-text-primary transition-all duration-300 w-full sm:w-fit mt-2 md:mt-0 hover:border-white/30 hover:shadow-[0_0_24px_rgba(78,133,191,0.2)] active:scale-95 cursor-pointer"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                View all on GitHub <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition-transform" />
               </span>
-            </button>
+            </a>
           </motion.div>
 
           {/* Stacked Cards Scrolling Animation */}
